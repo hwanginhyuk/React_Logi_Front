@@ -221,7 +221,7 @@ const logistic: NavItemType = {
               id: 'outsourceinfo',
               title: <FormattedMessage id="outsourceinfo" />,
               type: 'item',
-              url: '/hr/salary/BaseSalaryManage/BaseSalaryManagePage'
+              url: '/logi/purchase/outSourcing/OutSourcingForm'
             },
             {
               id: 'outsourceforward',
