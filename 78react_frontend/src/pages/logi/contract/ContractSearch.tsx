@@ -1,4 +1,4 @@
-import { Button, FormControlLabel, TextField, Grid, RadioGroup, Radio, Box, InputLabel, FormControl, Dialog, Modal } from '@mui/material';
+import { Button, FormControlLabel, TextField, Grid, RadioGroup, Radio, Box, InputLabel, Modal } from '@mui/material';
 import React, { useState } from 'react';
 import Layout from 'layout';
 import Page from 'ui-component/Page';
@@ -7,7 +7,6 @@ import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'ui-component/cards/MainCard';
 import axios from 'axios';
 import { Contract,ContractDetail } from 'types/logi/contract/tpyes';
-import ContractModal from 'pages/utils/ContractModal';
 
 //✔️[수주 관리] 페이지
 function ContractSearch() {
@@ -47,6 +46,7 @@ function ContractSearch() {
     setSearchOpenDialog(true);
   };
 
+  // columns 값을 이용해서 그리드에 데이터 태그로 보낸다
   const columns = [
     { headerName: '수주번호', field: 'contractNo', minWidth: 120, flex: 1 },
     { headerName: '견적번호', field: 'estimateNo', minWidth: 120, flex: 1 },
@@ -164,6 +164,7 @@ function ContractSearch() {
     //         customerCode: selCustomer.detailCode
     //     };
     // }
+    // 받아오는 데이터의 값이 boolean이다.
     if (dateSearch === true) {
       param = {
         startDate: startDate,
@@ -173,6 +174,7 @@ function ContractSearch() {
       };
     }
 
+    // RestAPI : GET, POST, PUT, DELETE... => JSON({키:값}) logisales.contractNo.data.gridRowJson.customerCode
     try {
       const response = await axios.get('http://localhost:9102/logisales/contract/list', {
         params: param
@@ -183,7 +185,7 @@ function ContractSearch() {
       setContractData(response.data.gridRowJson);
     } catch (error) {
       console.error('견적 조회 중 오류 발생: ', error);
-      // 오류 처리를 추가하세요.
+      // 오류 처리를 추가
     }
   };
 
@@ -211,27 +213,6 @@ function ContractSearch() {
       // 오류 처리를 추가하세요.
     }
   };
-
-  // const contractDetailData = async (params:any) => {
-  //     setOpen(true);
-  //     console.log("params.id",params.id);
-
-  //     try {
-  //         const response = await axios.get('http://localhost:9102/logisales/contractdetail/list', {
-  //             params: {
-  //                 contractNo: params.id
-  //             }
-  //         });
-
-  //         const result = response.data;
-  //         console.log("contractDetial",result);
-  //         console.log("contarctDetailData",result.data);
-
-  //     } catch (error) {
-  //         console.error("견적 조회 중 오류 발생: ", error);
-  //         // 오류 처리를 추가하세요.
-  //     }
-  // };
 
   function ContractSearch() {
     return (
