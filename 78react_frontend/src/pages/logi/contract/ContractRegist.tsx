@@ -3,11 +3,7 @@ import {
   TextField,
   Grid,
   Box,
-  InputLabel,
-  FormControl,
-  Modal,
-  Select,
-  MenuItem
+  InputLabel
 } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import Layout from 'layout';
@@ -18,9 +14,7 @@ import MainCard from 'ui-component/cards/MainCard';
 import axios from 'axios';
 import { getEstimateData } from '../estimate/action/EstimateAction';
 import { Contract } from 'types/logi/contract/tpyes';
-import ContractModal from 'pages/utils/ContractModal';
 import { ContractDetail } from 'types/logi/contract/tpyes';
-import { dispatch } from 'store';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 import Swal from 'sweetalert2';
@@ -205,6 +199,7 @@ function ContractRegist() {
 
   const estimateData = useSelector((state) => state.estimate.estimateList);
 
+  // useEffect 훅을 사용하여 estimateData가 변경될 때마다 list 상태를 업데이트
   useEffect(()=>{
     setList(estimateData);
   }, [estimateData])
