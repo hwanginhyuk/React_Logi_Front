@@ -1,16 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import Layout from 'layout';
-import MyGrid from 'pages/utils/Mygrid';
 import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
-import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import {textAlign} from "@mui/system";
 import {Button, Grid, Box} from "@mui/material";
-import MyCalendar from 'pages/utils/Mycalender';
 
-const codeInfo = (props) => {
+
+const codeInfo = (props:any) => {
     const [list, setList] = useState([]);
     const [size, setSize] = useState('50vh');
     const [data, setData] = useState(null);
@@ -91,7 +87,7 @@ const codeInfo = (props) => {
     );
 }
 
-codeInfo.getLayout = function getLayout(page: ReactElement) {
+codeInfo.getLayout = function getLayout(page:any) {
   return <Layout>{page}</Layout>;
 };
 

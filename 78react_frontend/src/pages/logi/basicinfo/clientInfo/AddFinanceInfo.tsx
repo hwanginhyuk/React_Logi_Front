@@ -28,12 +28,12 @@ const submit = {
   alignItems: 'center' // 세로 중앙 정렬
 };
 
-export default function AddFinanceinfo(props) {
+export default function AddFinanceinfo(props:any) {
   const [finaninfoTO, setFinaninfoTO] = useState<any>({});
 
   const dispatch = useDispatch();
 
-  const onSubmit = (e) => {
+  const onSubmit = (e:any) => {
     e.preventDefault();
     // 필수 필드 중 하나라도 비어있으면 경고 표시
     if (finaninfoTO == null) {
@@ -44,7 +44,7 @@ export default function AddFinanceinfo(props) {
     }
   };
 
-  const onChange = (e) => {
+  const onChange = (e:any) => {
     setFinaninfoTO({ ...finaninfoTO, [e.target.id]: e.target.value });
   };
 

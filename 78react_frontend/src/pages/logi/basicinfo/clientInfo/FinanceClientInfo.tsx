@@ -10,7 +10,7 @@ import { Button, Grid, Table, TableBody, TableCell, TableContainer, TableHead, T
 import Layout from 'layout';
 import MainCard from 'ui-component/cards/MainCard';
 
-function FinanceClientInfo(props) {
+function FinanceClientInfo(props:any) {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState<string[]>([]); // 선택된 아이템의 문자열 배열
   const [addOpenDialog, setAddOpenDialog] = useState(false);
@@ -59,9 +59,9 @@ function FinanceClientInfo(props) {
   const close = () => {
     setAddOpenDialog(false);
   };
-  let resultList = [];
+  let resultList:any[] = [];
 
-  const [result, FinanBatchSaveFetch] = useAsync((param) => api.saveFinanInfo(param), [], true);
+  const [result, FinanBatchSaveFetch] = useAsync((param:any) => api.saveFinanInfo(param), [], true);
 
   const batchSave = useCallback(() => {
     FinanBatchSaveFetch(resultList);
@@ -90,7 +90,7 @@ function FinanceClientInfo(props) {
     let updateCount = 0;
     let deleteCount = 0;
 
-    FinanInfoList.forEach((rowObject) => {
+    FinanInfoList.forEach((rowObject:any) => {
       let status = rowObject.status;
       if (status === 'INSERT') {
         if (rowObject.customerName === '') {
