@@ -51,33 +51,11 @@ export const convertContractDetailToMps = (contract: any) => {
     });
 };
 
-// export const searchMpsInfo = (setMpsList: any, calendarDate: any) => {
-//   axios
-//     .get('http://localhost:9102/production/mps/list', {
-//       params: {
-//         startDate: calendarDate.startDate,
-//         endDate: calendarDate.endDate,
-//         includeMrpApply: 'includeMrpApply'
-//       }
-//     })
-//     .then(({ data }) => {
-//       console.log('리액트아니라고요', data);
-//       setMpsList(data.gridRowJson);
-//     })
-//     .catch((e) => {
-//       Swal.fire({
-//         icon: 'error',
-//         title: e
-//       });
-//     });
-// };
 
 export const searchMpsInfoInMrp = (setContractList: any, calendarDate: any) => {
   console.log('calendarDate1 : ', calendarDate);
   axios
     .get('http://localhost:9102/production/mps/list', {
-      // 2023-10-24(화) Hoyeon
-      // MRP페이지에서 MPS리스트를 조회해야 하기 때문에 경로가 mps/list가 되어야 함.
       params: {
         startDate: calendarDate.startDate,
         endDate: calendarDate.endDate,
@@ -95,22 +73,3 @@ export const searchMpsInfoInMrp = (setContractList: any, calendarDate: any) => {
     });
 };
 
-// export const searchMpsInfoInMrp = (setContractList,calendarDate) => {  // 3-13추가 MRP에서 MPS 조회시
-//     console.log("calendarDate1 : ", calendarDate);
-//     axios.get("http://localhost:9102/production/mps/contractdetail-processplanavailable",{  // /mps/list -> mrp/list 로 변경(3-14)
-//             params : {
-//                 startDate:calendarDate.startDate,
-//                 endDate :calendarDate.endDate,
-//                 searchCondition:'contractDate'  //includeMrpApply -> searchCondition : 'contractDate'로 수정
-//             }
-//         }
-//     ).then(({data}) => {
-//
-//         setContractList(data.gridRowJson);
-//     }).catch(e => {
-//         Swal.fire({
-//             icon: "error",
-//             title: e
-//         });
-//     });
-// }

@@ -11,17 +11,12 @@ import { MpsTO } from 'types/logi/mrp/types';
 import MyCalendar from 'pages/utils/Mycalender';
 import Swal from 'sweetalert2';
 import { convertContractDetailToMps, searchContractDetailInMpsAvailable } from './mpsAxios';
-import MyDialog from 'pages/utils/MyDialog';
-import MpsDialog from './MpsDialog';
 import dayjs from 'dayjs'
 
 // assets
-import axios from 'axios';
 import { ContractDetailInMpsAvailableTO } from 'types/logi/mps/types';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
-import { dispatch } from 'store';
-import { getMpsList } from 'store/slices/mps';
 
 const contractlistcolumn = [
   {
@@ -40,13 +35,13 @@ const contractlistcolumn = [
     field: 'mpsPlanDate',
     editable: true,
     type: 'date',
-    valueFormatter: (params) => dayjs(params.value).format('YYYY-MM-DD'),
+    valueFormatter: (params: any) => dayjs(params.value).format('YYYY-MM-DD'),
   },
   {
     headerName: '출하예정일',
     field: 'scheduledEndDate',
     editable: true,
-    valueFormatter: (params) => dayjs(params.value).format('YYYY-MM-DD'),
+    valueFormatter: (params: any) => dayjs(params.value).format('YYYY-MM-DD'),
     type: 'date'
   },
   { headerName: '납기일', field: 'dueDateOfContract' },
@@ -70,8 +65,8 @@ function MpsContainer() {
     startDate: startDate,
     endDate: endDate
   });
-  const [updatedRow, setUpdateRows ] = useState([]);
-  const [dataRow, setDataRows ] = useState([]);
+  const [updatedRow, setUpdateRows] = useState([]);
+  const [dataRow, setDataRows] = useState([]);
   const [editRowsModel, setEditRowsModel] = useState({});
   const [ContractList, setContractList] = useState<ContractDetailInMpsAvailableTO[]>([]);
 
@@ -79,7 +74,7 @@ function MpsContainer() {
     setSelectedRows([])
   }, [])
 
-  const processRowUpdate = (newRow) => {
+  const processRowUpdate = (newRow: any) => {
     const newRows = { ...newRow };
     const existingIndex = updatedRow.findIndex(row => row.estimateNo === newRows.estimateNo);
     if (existingIndex !== -1) {
@@ -92,14 +87,14 @@ function MpsContainer() {
     return newRows;
   };
 
-  const uniqueContractsArray = (contracts) => {
+  const uniqueContractsArray = (contracts: any) => {
     const uniqueContracts = {};
 
     contracts.forEach(contract => {
-        const { contractDetailNo } = contract;
-        if (!uniqueContracts[contractDetailNo] || uniqueContracts[contractDetailNo].index < contracts.indexOf(contract)) {
-            uniqueContracts[contractDetailNo] = { index: contracts.indexOf(contract), value: contract };
-        }
+      const { contractDetailNo } = contract;
+      if (!uniqueContracts[contractDetailNo] || uniqueContracts[contractDetailNo].index < contracts.indexOf(contract)) {
+        uniqueContracts[contractDetailNo] = { index: contracts.indexOf(contract), value: contract };
+      }
     });
 
     const uniqueContractsArray = Object.values(uniqueContracts).map(item => item.value);
@@ -107,9 +102,9 @@ function MpsContainer() {
     return uniqueContractsArray;
   }
 
-  const findContractByDetailNo = (data, selectedRows) => {
+  const findContractByDetailNo = ({ data, selectedRows }: any) => {
     return [data.find(contract => contract.contractDetailNo === selectedRows[0])];
-};
+  };
 
   //MPS등록
   const onClickMpsInsert = () => {
@@ -120,41 +115,41 @@ function MpsContainer() {
         title: '등록할 열을 선택해주세요'
       });
     }
-    
+
     try {
-    const data = findContractByDetailNo(uniqueContractsArray(updatedRow),selectedRows)[0];
+      const data = findContractByDetailNo(uniqueContractsArray(updatedRow), selectedRows)[0];
 
-    if (
-      data.mpsPlanDate === null ||
-      data.scheduledEndDate === null ||
-      data.mpsPlanDate === '' ||
-      data.scheduledEndDate === '' ||
-      data.productionRequirement === null ||
-      data.productionRequirement === ''
-     ) {
-      return Swal.fire({
-        icon: 'error',
-        title: '계획일자,출하예정일 \r\n 값을 입력해주세요'
-      });
-     }
-    data.planClassification = "수주상세"
-    const newData = {...data};
-    newData.mpsPlanDate = newData.mpsPlanDate.toISOString().split('T')[0];
-    newData.scheduledEndDate = newData.scheduledEndDate.toISOString().split('T')[0];
+      if (
+        data.mpsPlanDate === null ||
+        data.scheduledEndDate === null ||
+        data.mpsPlanDate === '' ||
+        data.scheduledEndDate === '' ||
+        data.productionRequirement === null ||
+        data.productionRequirement === ''
+      ) {
+        return Swal.fire({
+          icon: 'error',
+          title: '계획일자,출하예정일 \r\n 값을 입력해주세요'
+        });
+      }
+      data.planClassification = "수주상세"
+      const newData = { ...data };
+      newData.mpsPlanDate = newData.mpsPlanDate.toISOString().split('T')[0];
+      newData.scheduledEndDate = newData.scheduledEndDate.toISOString().split('T')[0];
 
-    console.log('newData : ', newData);
-    
-    // MPS 등록 API를 호출하고 데이터를 서버로 보냅니다.
-    convertContractDetailToMps(newData);
-    onClickSearchContract();
-    Swal.fire({
-      icon: 'success',
-      title: 'MPS 등록완료'
-    }).then((result) => {
+      console.log('newData : ', newData);
+
+      // MPS 등록 API를 호출하고 데이터를 서버로 보냅니다.
+      convertContractDetailToMps(newData);
       onClickSearchContract();
-    }).catch((err) => {
-      
-    });
+      Swal.fire({
+        icon: 'success',
+        title: 'MPS 등록완료'
+      }).then((result) => {
+        onClickSearchContract();
+      }).catch((err) => {
+
+      });
     } catch (error) {
       console.error('서버 요청 중 오류 발생: ', error);
       return Swal.fire({
@@ -163,7 +158,7 @@ function MpsContainer() {
       }).then((result) => {
         onClickSearchContract();
       }).catch((err) => {
-        
+
       });
     }
   };
@@ -255,7 +250,7 @@ function MpsContainer() {
                     const result = itm.filter((s) => !itmSet.has(s));
                     setSelectedRows(result);
                     console.log(result)
-                  } else if(itm.length = 1) {
+                  } else if (itm.length = 1) {
                     console.log(itm)
                     setSelectedRows(itm)
                   } else {

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const getmpsData = async (startDate: any, endDate: any, dateSearchCondition: any) => {
   const params = {
@@ -34,6 +35,3 @@ const convertContractDetailToMps = (contract: any) => {
 
 export { getmpsData, convertContractDetailToMps };
 
-//2023-11-07(화) Hoyeon
-//2024-03-12 seungwoo 추가
-//Type 지정
