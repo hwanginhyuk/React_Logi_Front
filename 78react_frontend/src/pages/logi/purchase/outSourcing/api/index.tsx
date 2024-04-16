@@ -8,8 +8,8 @@ export const outSourcingListApi = async (param:string) => {
         const response = await logiApi.get(GET_API_URL, {
             params: { param }
         });
-        console.log('있니?', response.data.gridRowJson);
-        return response.data.gridRowJson;
+        console.log('있니?', response.data.outSourcingList);
+        return response.data.outSourcingList;
     } catch (error) {
         console.log('error');
     }

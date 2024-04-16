@@ -34,11 +34,12 @@ function OutSourcing() {
     const [customerCode, setCustomerCode] = useState(null);
     const [itemCode, setItemCode] = useState(null);
     const [materialStatus, setMaterialStatus] = useState(null);
+    const [rowData, setRowData] = useState<OutSourcingTO[]>([]);
+
+        
     useEffect(() => {
         fetchData();
     }, []);
-
-    const [rowData, setRowData] = useState<OutSourcingTO[]>([]);
 
     // ✔️지시일, 완료일
     const onChangeDate = (e: any) => {
@@ -70,10 +71,9 @@ function OutSourcing() {
 
             const result = response.data;
             console.log(result);
-            setRowData(response.data.gridRowJson);
+            setRowData(response.data.outSourcingList);
         } catch (error) {
-            console.error('견적 조회 중 오류 발생: ', error);
-            // 오류 처리를 추가하세요.
+            console.error('외주 발주 조회 중 오류 발생: ', error);
         }
     };
 
@@ -97,7 +97,7 @@ function OutSourcing() {
         <Page title="외주발주관리">
             <MainCard content={false}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <h2 style={{ margin: 20, fontFamily: 'Verdana, Geneva, sans-serif' }}>외주 관리</h2>
+                    <h2 style={{ margin: 20, fontFamily: 'Verdana, Geneva, sans-serif' }}>외주 발주 관리</h2>
                     <div style={containerStyle}>
                         <InputLabel htmlFor="fromDate" style={{ marginRight: '1vh' }}>지시일</InputLabel>
                         <TextField id="fromDate" onChange={onChangeDate} type={'date'} style={textFieldStyle} defaultValue={fromDate} />

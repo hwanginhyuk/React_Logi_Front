@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+// @reduxjs/toolkit을 쓰면 미들웨어(Saga, Thunk) 두개 다 쓸 수 있다
 
 const outSourcingReducer = createSlice({
     name: 'outSourcing',
@@ -8,7 +9,7 @@ const outSourcingReducer = createSlice({
     },
     reducers: {
         outSourcingListRequest: (state, action) => {
-            console.log('✔️리듀서리퀘스트: outSourcingListRequest', action.payload);
+            console.log('✔️리듀서리퀘스트: outSourcingListRequest', action.payload.outSourcingList);
             state.error = null;
         },
         outSourcingListRequestSuccess: (state, action) => {

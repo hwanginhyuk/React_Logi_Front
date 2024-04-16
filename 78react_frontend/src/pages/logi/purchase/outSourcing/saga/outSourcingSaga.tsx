@@ -8,13 +8,13 @@ import { AxiosResponse } from 'axios';
 
 // ✔️조회
 function* fetchOutSourcingList(action: any) {
-    console.log('왔니?', action.payload.ableContractInfo);
+    console.log('왔니?', action.payload.outSourcingList);
     try {
-        const response: AxiosResponse = yield call(outSourcingListApi, action.payload.ableContractInfo);
+        const response: AxiosResponse = yield call(outSourcingListApi, action.payload.outSourcingList);
         console.log('됫니?', response);
         yield put(outSourcingListRequestSuccess(response));
     } catch (error) {
-        console.log('에러임', error);
+        console.log('에러!', error);
     }
 }
 
