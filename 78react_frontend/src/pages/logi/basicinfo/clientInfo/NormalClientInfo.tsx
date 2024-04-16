@@ -10,13 +10,13 @@ import MainCard from 'ui-component/cards/MainCard';
 import BasicModal from 'components/basicInfo/BasicModal';
 import Swal from 'sweetalert2';
 
-function NormalClientInfo(props) {
+function NormalClientInfo(props:any) {
   const [selected, setSelected] = useState<string[]>([]); // 선택된 아이템의 문자열 배열
   const [addOpenDialog, setAddOpenDialog] = useState(false);
   const dispatch = useDispatch();
   const ClientInfoList = useSelector((state) => state.basicinfo.ClientInfoList);
   console.log('저장값', ClientInfoList);
-  const list = ClientInfoList.filter((list) => list.status !== 'DELETE');
+  const list = ClientInfoList.filter((list:any) => list.status !== 'DELETE');
 
   //첫 화면에 일반 거래처 정보
 
@@ -53,9 +53,9 @@ function NormalClientInfo(props) {
   const close = () => {
     setAddOpenDialog(false);
   };
-  let resultList = [];
+  let resultList:any = [];
 
-  const [result, batchSaveFetch] = useAsync((param) => api.saveClient(param), [], true);
+  const [result, batchSaveFetch] = useAsync((param:any) => api.saveClient(param), [], true);
 
   const batchSave = useCallback(() => {
     batchSaveFetch(resultList);
@@ -83,7 +83,7 @@ function NormalClientInfo(props) {
     let updateCount = 0;
     let deleteCount = 0;
 
-    ClientInfoList.forEach((rowObject) => {
+    ClientInfoList.forEach((rowObject:any) => {
       let status = rowObject.status;
       if (status === 'INSERT') {
         if (rowObject.customerName === '') {
