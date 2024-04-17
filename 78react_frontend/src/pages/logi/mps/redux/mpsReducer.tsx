@@ -4,6 +4,7 @@ export interface Imps {
   mpsData: [];
 }
 
+// 초기값 설정
 export interface ImpsState extends Imps {
   mpsData: [];
   mpsLoading: boolean;
@@ -18,6 +19,7 @@ const initialState: ImpsState = {
   mpsError: null
 };
 
+// 데이터값 셋팅
 const mpsSlice = createSlice({
   name: 'mps',
   initialState,

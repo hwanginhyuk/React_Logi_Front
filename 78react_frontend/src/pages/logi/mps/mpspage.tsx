@@ -148,7 +148,7 @@ function MpsContainer() {
       }).then((result) => {
         onClickSearchContract();
       }).catch((err) => {
-
+        console.log('mps등록오류',err)
       });
     } catch (error) {
       console.error('서버 요청 중 오류 발생: ', error);
@@ -163,7 +163,7 @@ function MpsContainer() {
     }
   };
 
-  const handleEditCell = (params) => {
+  const handleEditCell = (params:any) => {
     const { id, field, value, hasChanged } = params;
     if (hasChanged) {
       // 변경된 값을 처리하는 로직 추가

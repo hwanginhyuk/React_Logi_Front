@@ -1,4 +1,3 @@
-//2023-10-31(화) Hoyeon
 //필요없는 코드 정리 및 데이터 연결
 
 import MyGrid from 'pages/utils/Mygrid';
