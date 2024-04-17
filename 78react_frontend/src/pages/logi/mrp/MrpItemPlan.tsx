@@ -12,7 +12,7 @@ import { getMrpList } from 'pages/logi/mrp/redux/mrpToolkit';
 import MrpGatherResultDialog from './MrpGatherResultDialog';
 
 const MrpItemPlan = () => {
-    
+
     const [mrpList, setMrpList] = useState([]);
     const [mrpGatherResultDialog, setMrpGatherResultDialog] = useState(false);
 
@@ -26,22 +26,22 @@ const MrpItemPlan = () => {
         { headerName: "필요수량", field: "requiredAmount", minWidth: 100, flex: 1 },
         // { headerName: "취합 적용상태", field: "ZmrpGatheringStatus" },
     ];
-      
+
     const dispatch = useDispatch();
 
     const state = useSelector((state) => {
-      return state.mrp.mrpList;
+        return state.mrp.mrpList;
     });
 
     useEffect(() => {
         dispatch(getMrpList());
     }, [])
 
-    useEffect(() =>{
+    useEffect(() => {
         const filteredItems = state
         console.log(filteredItems);
         setMrpList(filteredItems);
-    },[state]);
+    }, [state]);
 
     const mrpGatherResultOpen = () => {
         setMrpGatherResultDialog(true);
@@ -61,35 +61,35 @@ const MrpItemPlan = () => {
                 content={false}
                 title={'구매 및 생산 소요량 취합'}
                 secondary={
-                <Grid item xs={12} sm={6} sx={{textAlign: 'right'}}>
-                    <Button variant="contained" color="secondary" onClick={mrpGatherResultOpen}
+                    <Grid item xs={12} sm={6} sx={{ textAlign: 'right' }}>
+                        <Button variant="contained" color="secondary" onClick={mrpGatherResultOpen}
                             style={{ marginRight: '1vh', marginTop: '1vh' }}
-                    >
-                    소요량 취합 실행
-                    </Button>
-                </Grid>
+                        >
+                            소요량 취합 실행
+                        </Button>
+                    </Grid>
                 }
             >
                 <Box
-                sx={{
-                height: 500,
-                width: '100%',
-                background: 'white'
-                }}
+                    sx={{
+                        height: 500,
+                        width: '100%',
+                        background: 'white'
+                    }}
                 >
-                <DataGrid
-                rows={mrpList}
-                columns={column}
-                getRowId={(row) => row.mrpNo}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
-                disableRowSelectionOnClick
-                />
+                    <DataGrid
+                        rows={mrpList}
+                        columns={column}
+                        getRowId={(row) => row.mrpNo}
+                        pageSize={10}
+                        rowsPerPageOptions={[10]}
+                        disableRowSelectionOnClick
+                    />
                 </Box>
             </MainCard>
 
             <MyDialog open={mrpGatherResultDialog} close={mrpGatherResultClose} maxWidth={'sm'}>
-                <MrpGatherResultDialog mrpList={mrpList} mrpGatherResultClose={()=>mrpGatherResultClose()} getMrpList={()=>serchMrpList()}/>
+                <MrpGatherResultDialog mrpList={mrpList} mrpGatherResultClose={() => mrpGatherResultClose()} getMrpList={() => serchMrpList()} />
             </MyDialog>
         </>
     );

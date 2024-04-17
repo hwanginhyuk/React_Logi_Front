@@ -1,3 +1,5 @@
+//Reducer 생성
+
 const SEARCH_MPS_LIST_SUCCESS = 'src/erp/logistic/Saga/SEARCH_MPS_SUCCESS';
 
 const initialState = {
@@ -18,5 +20,3 @@ const mpslist = (state = initialState, action: any) => {
 
 export default mpslist;
 
-//2023-11-06(월) Hoyeon
-//Reducer 생성

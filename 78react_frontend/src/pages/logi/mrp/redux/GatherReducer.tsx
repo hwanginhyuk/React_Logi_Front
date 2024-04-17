@@ -1,3 +1,5 @@
+//Reducer 생성
+
 const SEARCH_GATHER_LIST_SUCCESS = 'src/erp/logistic/Saga/SEARCH_GATHER_LIST_SUCCESS';
 
 const initialState = {
@@ -17,6 +19,3 @@ const gatherlist = (state = initialState, action: any) => {
 };
 
 export default gatherlist;
-
-//2023-11-06(월) Hoyeon
-//Reducer 생성

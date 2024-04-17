@@ -1,3 +1,5 @@
+//Reducer 생성
+
 export const SEARCH_MRP_GETMRPLIST_SUCCESS = 'src/erp/logistic/Saga/SEARCH_MRP_GETMRPLIST_SUCCESS';
 
 const initialState = {
@@ -17,6 +19,3 @@ const mrplist = (state = initialState, action: any) => {
 };
 
 export default mrplist;
-
-//2023-11-06(월) Hoyeon
-//Reducer 생성

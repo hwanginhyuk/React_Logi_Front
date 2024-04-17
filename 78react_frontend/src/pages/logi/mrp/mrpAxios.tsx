@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
-//2023-10-20(금) : Hoyeon
+
 //mrp에 적용하기 위한 mrpAxios 파일 생성
 export const searchMpsList = (setMpsList: any, calendarDate: any) => {
   axios

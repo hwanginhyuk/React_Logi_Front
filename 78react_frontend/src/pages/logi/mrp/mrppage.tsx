@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Box, Tab, Tabs, Theme, useTheme } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import Page from 'components/ui-component/Page';
-import PropTypes from 'prop-types';
 import Layout from 'layout';
 import MrpItemPlan from './MrpItemPlan';
 import MrpRegister from './MrpRegister';
@@ -85,7 +84,7 @@ const mrppage = () => {
   );
 }
 
-mrppage.getLayout = function getLayout(page: ReactElement) {
+mrppage.getLayout = function getLayout(page:any) {
     return <Layout>{page}</Layout>;
 };
 

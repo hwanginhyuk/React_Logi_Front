@@ -1,3 +1,5 @@
+//Reducer 생성
+
 import { combineReducers } from 'redux';
 import gatherlist from './GatherReducer';
 import mpslist from './mpsReducer';
@@ -13,5 +15,3 @@ const ProductionReducerCombine = combineReducers({
 
 export default ProductionReducerCombine;
 
-//2023-11-06(월) Hoyeon
-//Reducer 생성
