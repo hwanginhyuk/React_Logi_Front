@@ -2,6 +2,7 @@ import { call, fork, put, all, takeLatest } from 'redux-saga/effects';
 import { requestmps, requestmpsSuccess, requestmpsError } from 'pages/logi/mps/redux/mpsReducer';
 import { getmpsData } from 'pages/logi/mps/api/mpsApi';
 
+// yield : 함수 실행을 일시 중지하고 값을 반환하는 데 사용
 function* handleEstimate(action: any) {
   try {
     const { startDate, endDate, dateSearchCondition } = action.payload;

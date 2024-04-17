@@ -8,13 +8,15 @@ const getmpsData = async (startDate: any, endDate: any, dateSearchCondition: any
     dateSearchCondition: dateSearchCondition
   };
 
+  // 주생산계획 - MPS 조회
   const response = await axios.get('http://localhost:9102/production/mps/list', { params: params });
   let datatata = response.data.gridRowJson;
-  console.log('서버에서 받은 데이터 ㅇㅅㅇ???:', response.data.gridRowJson);
+  console.log('서버에서 받은 데이터 :', response.data.gridRowJson);
 
   return datatata;
 };
 
+// 주생산계획 - MPS 등록
 const convertContractDetailToMps = (contract: any) => {
   console.log("contract : ", contract); //{key1:val1, key2:val2.....}
   axios.post("http://localhost:9102/production/mps/contractdetail",
