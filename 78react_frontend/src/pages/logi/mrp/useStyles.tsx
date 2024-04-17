@@ -1,6 +1,5 @@
 import { makeStyles } from '@mui/material/styles';
 
-//2023-10-20(금) : Hoyeon
 //mrp에 적용하기 위한 useStyles 파일 생성
 const usestyles = makeStyles((theme: any) => ({
   mainPaper: {

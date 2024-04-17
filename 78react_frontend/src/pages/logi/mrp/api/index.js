@@ -57,21 +57,6 @@ export const searchGetMpsList = (param) => {
     });
   };
 
-  // export const searchGatherList = (param) => {
-  //   console.log('api 시작');
-  //   console.log(param);
-
-  //   // FormData 객체 생성
-  //   const formData = new FormData();
-
-  //   // "batchList" 파라미터에 객체 추가
-  //   formData.append('mrpNoList', JSON.stringify(param));
-  //   console.log(formData);
-  //   // return axios.get('/production/mrp/gathering-list', formData);
-
-  //   console.log('api 끝');
-  // };
-
 export const mrpGatherInsert = (param) => {
   console.log(param);
 

@@ -115,19 +115,7 @@ function MrpRegister() {
     }
   };
 
-  // const textFieldStyle = {
-  //   marginRight: '1vh', // 간격 조정
-  //   flexGrow: 1, // TextField가 남은 공간을 모두 차지하도록 설정
-  //   maxWidth: '120px' // 가로 크기 조정s
-  // };
-
-  // const buttonStyle = {
-  //   fontSize: '0.8rem', // 버튼의 폰트 크기를 줄임
-  //   padding: '0.3rem 1rem' // 버튼의 패딩을 조절
-  // };
-
   //MPS조회 행 클릭 시  선택된 정보 데이터 저장 로직
-
   const containerStyle = {
     display: 'flex',
     alignItems: 'center',
