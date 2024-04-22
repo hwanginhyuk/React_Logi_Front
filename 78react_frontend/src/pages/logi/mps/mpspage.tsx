@@ -87,6 +87,15 @@ function MpsContainer() {
     return newRows;
   };
 
+  /* 
+  [78inhyuk]
+  중복 된 것을 제거하고 고유한 것만 남기는 함수
+  contracts 배열을 받아들이고, 이 배열의 각 요소를 반환
+  각 객체의 contractDetailNo 속성을 사용하여 구분한다
+  uniqueContracts 객체를 만들어 각 contractDetailNo 값을 키로 사용하고,
+  해당 contractDetailNo가 이미 uniqueContracts에 존재하는 지 확인
+  만약 존재하지 않거나 이미 저장된 contractDetailNo의 인덱스보다 현재 contract의 인덱스가 더 크다면, 새로운 값을 저장
+  */ 
   const uniqueContractsArray = (contracts: any) => {
     const uniqueContracts = {};
 
@@ -102,11 +111,14 @@ function MpsContainer() {
     return uniqueContractsArray;
   }
 
-  const findContractByDetailNo = ({ data, selectedRows }: any) => {
+  const findContractByDetailNo = (data, selectedRows) => {
     return [data.find(contract => contract.contractDetailNo === selectedRows[0])];
   };
 
-  //MPS등록
+  //MPS등록 
+  /*
+  오류처리 문장
+  */
   const onClickMpsInsert = () => {
     if (selectedRows.length === 0) {
       console.log(selectedRows);
@@ -115,10 +127,16 @@ function MpsContainer() {
         title: '등록할 열을 선택해주세요'
       });
     }
-
+    /*
+    [78inhyuk]
+      위에서 만든 uniqueContractsArray로 선택된 updataRow를 넣어 data에 담는다
+    */
     try {
       const data = findContractByDetailNo(uniqueContractsArray(updatedRow), selectedRows)[0];
 
+        /*
+        오류처리 문장
+        */
       if (
         data.mpsPlanDate === null ||
         data.scheduledEndDate === null ||
@@ -132,6 +150,11 @@ function MpsContainer() {
           title: '계획일자,출하예정일 \r\n 값을 입력해주세요'
         });
       }
+      /*
+        [78inhyuk]
+          toISOString() : "YYYY-MM-DDTHH:mm:ss.sssZ"
+          split('T')[0]을 하면 YYYY-MM-DD형식으로 반환된다
+        */
       data.planClassification = "수주상세"
       const newData = { ...data };
       newData.mpsPlanDate = newData.mpsPlanDate.toISOString().split('T')[0];
@@ -140,7 +163,15 @@ function MpsContainer() {
       console.log('newData : ', newData);
 
       // MPS 등록 API를 호출하고 데이터를 서버로 보냅니다.
+        /*
+        [78inhyuk]
+          convertContractDetailToMps는 mpsApi와 mpsAxios에 모두 존재한다
+          convertContractDetailToMps 함수에 newData를 넣어 호출하면,
+          Axios가 실행되어 Back 컨트롤러에 연결된다
+        */
       convertContractDetailToMps(newData);
+      
+      // Mps 등록가능 조회
       onClickSearchContract();
       Swal.fire({
         icon: 'success',
@@ -170,7 +201,16 @@ function MpsContainer() {
       console.log(`Cell with id ${id}, field ${field} has new value: ${value}`);
     }
   };
-
+  
+  // Mps 등록가능 조회(useCallback())
+  /* 
+  [78inhyuk]
+  useCallback() : 함수가 렌더링 시마다 새롭게 생성되는데, useCallback()은 함수가 변경되지 않도록 유지해준다
+  searchContractDetailInMpsAvailable함수는 Axios에 만들어져 있으며, setContractList함수를 사용하여 결과를 업데이트 한다.
+  setUpdateRows 호출하여 updata상태를 초기화한다.
+  setContractList는 ContractDetailInMpsAvailableTO[] 타입이 지정되어 있다
+  ContractDetailInMpsAvailableTO[]에 인터페이스로 데이터를 다루는 함수이다
+  */
   const onClickSearchContract = useCallback(() => {
     searchContractDetailInMpsAvailable(setContractList, startDate, endDate);
     setUpdateRows([]);

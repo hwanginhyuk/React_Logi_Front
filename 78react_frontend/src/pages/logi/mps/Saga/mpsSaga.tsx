@@ -1,6 +1,8 @@
 import { call, fork, put, all, takeLatest } from 'redux-saga/effects';
 import { requestmps, requestmpsSuccess, requestmpsError } from 'pages/logi/mps/redux/mpsReducer';
 import { getmpsData } from 'pages/logi/mps/api/mpsApi';
+// 현재 import { PayloadAction, createSlice } from '@reduxjs/toolkit';을 사용중이라 saga 안써도됨
+// 다만 비동기 작업을 관리하기 위해서는 사용을 권장하긴함
 
 // yield : 함수 실행을 일시 중지하고 값을 반환하는 데 사용
 function* handleEstimate(action: any) {
