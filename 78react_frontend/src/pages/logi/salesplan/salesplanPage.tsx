@@ -8,7 +8,6 @@ import { SalesPlanTO } from 'types/logi/salesplan/types';
 import { searchSalesPlanAvailable } from './saga/salesPlanAxios';
 import { useTheme } from '@mui/material/styles';
 import Swal from 'sweetalert2';
-import { convertSalesPlan } from './api/salesplanApi';
 import MyCalendar from 'pages/utils/Mycalender';
 import salePlanlistcolumn from './component/salesPlanListColumn';
 
