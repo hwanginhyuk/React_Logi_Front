@@ -5,7 +5,7 @@ import mpsListColumn from './mpsListColumn';
 import MainCard from 'ui-component/cards/MainCard';
 
 type props = {
-  mpsList: any;
+  mpsList: string;
   calendarDate: any;
 };
 
