@@ -30,9 +30,14 @@ import gatherReducer from 'pages/logi/mrp/redux/gatherToolkit';
 import orderRegistReducer from 'pages/logi/purchase/orderRegistInfo/redux/OrderRegistToolkit';
 import orderInfoReducer from 'pages/logi/purchase/orderRegistInfo/redux/OrderInfoToolkit';
 import stockReducer from 'pages/logi/purchase/stockInfo/redux/StockToolkit';
-import workSiteReducer from 'pages/logi/production/worksite/redux/workSiteToolkit.tsx';
+import workSiteReducer from 'pages/logi/production/worksite/redux/workSiteToolkit';
 
 // ==============================|| COMBINE REDUCER ||============================== //
+/*
+combineReducers : Redux에서 여러 개의 reducer를 하나로 결합하는 함수
+Redux에서 상태(state)를 관리할 때, 여러 개의 reducer가 각각 다른 부분의 상태를 처리
+이러한 reducer들을 결합하여 하나의 상태 트리를 만들기 위해 combineReducer 함수를 사용
+*/
 
 const reducer = combineReducers({
   snackbar: snackbarReducer,
