@@ -1,8 +1,11 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-//2023-10-20(금) : Hoyeon
 //mrp에 적용하기 위한 mpsAxios 파일 생성
+/*
+searchContractDetailInMpsAvailable()가 setContractList의 데이터 구조를 가지고 도착하면
+axios로 params를 컨트롤러로 넘겨준다
+*/
 
 export const searchContractDetailInMpsAvailable = (setContractList: any, startDate: any, endDate: any) => {
   // MPS - MPS 등록 가능 조회
@@ -33,6 +36,16 @@ export const searchContractDetailInMpsAvailable = (setContractList: any, startDa
       });
     });
 };
+
+/*
+[78inhyuk]
+mpsApi에서도 같은 것을 호출하고 있다.
+mpsApi에서 호출하는 방식은 주로 fetch를 사용하며
+mpsAxios에서 호출하는 방식이 axios사용하게 되어있다
+현재 두개 모두 같은 함수를 호출하여 같은 axios를 호출하고 있으나 오류는 없다
+이러한 경우는 성능의 문제를 일으킬 것이라고 판단한다 
+*/ 
+
 export const convertContractDetailToMps = (contract: any) => {
   console.log('contract : ', contract); //{key1:val1, key2:val2.....}
   axios
@@ -51,33 +64,12 @@ export const convertContractDetailToMps = (contract: any) => {
     });
 };
 
-// export const searchMpsInfo = (setMpsList: any, calendarDate: any) => {
-//   axios
-//     .get('http://localhost:9102/production/mps/list', {
-//       params: {
-//         startDate: calendarDate.startDate,
-//         endDate: calendarDate.endDate,
-//         includeMrpApply: 'includeMrpApply'
-//       }
-//     })
-//     .then(({ data }) => {
-//       console.log('리액트아니라고요', data);
-//       setMpsList(data.gridRowJson);
-//     })
-//     .catch((e) => {
-//       Swal.fire({
-//         icon: 'error',
-//         title: e
-//       });
-//     });
-// };
+
 
 export const searchMpsInfoInMrp = (setContractList: any, calendarDate: any) => {
   console.log('calendarDate1 : ', calendarDate);
   axios
     .get('http://localhost:9102/production/mps/list', {
-      // 2023-10-24(화) Hoyeon
-      // MRP페이지에서 MPS리스트를 조회해야 하기 때문에 경로가 mps/list가 되어야 함.
       params: {
         startDate: calendarDate.startDate,
         endDate: calendarDate.endDate,
@@ -95,22 +87,3 @@ export const searchMpsInfoInMrp = (setContractList: any, calendarDate: any) => {
     });
 };
 
-// export const searchMpsInfoInMrp = (setContractList,calendarDate) => {  // 3-13추가 MRP에서 MPS 조회시
-//     console.log("calendarDate1 : ", calendarDate);
-//     axios.get("http://localhost:9102/production/mps/contractdetail-processplanavailable",{  // /mps/list -> mrp/list 로 변경(3-14)
-//             params : {
-//                 startDate:calendarDate.startDate,
-//                 endDate :calendarDate.endDate,
-//                 searchCondition:'contractDate'  //includeMrpApply -> searchCondition : 'contractDate'로 수정
-//             }
-//         }
-//     ).then(({data}) => {
-//
-//         setContractList(data.gridRowJson);
-//     }).catch(e => {
-//         Swal.fire({
-//             icon: "error",
-//             title: e
-//         });
-//     });
-// }

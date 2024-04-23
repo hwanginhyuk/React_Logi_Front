@@ -11,17 +11,12 @@ import { MpsTO } from 'types/logi/mrp/types';
 import MyCalendar from 'pages/utils/Mycalender';
 import Swal from 'sweetalert2';
 import { convertContractDetailToMps, searchContractDetailInMpsAvailable } from './mpsAxios';
-import MyDialog from 'pages/utils/MyDialog';
-import MpsDialog from './MpsDialog';
 import dayjs from 'dayjs'
 
 // assets
-import axios from 'axios';
 import { ContractDetailInMpsAvailableTO } from 'types/logi/mps/types';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
-import { dispatch } from 'store';
-import { getMpsList } from 'store/slices/mps';
 
 const contractlistcolumn = [
   {
@@ -40,13 +35,13 @@ const contractlistcolumn = [
     field: 'mpsPlanDate',
     editable: true,
     type: 'date',
-    valueFormatter: (params) => dayjs(params.value).format('YYYY-MM-DD'),
+    valueFormatter: (params: any) => dayjs(params.value).format('YYYY-MM-DD'),
   },
   {
     headerName: '출하예정일',
     field: 'scheduledEndDate',
     editable: true,
-    valueFormatter: (params) => dayjs(params.value).format('YYYY-MM-DD'),
+    valueFormatter: (params: any) => dayjs(params.value).format('YYYY-MM-DD'),
     type: 'date'
   },
   { headerName: '납기일', field: 'dueDateOfContract' },
@@ -70,8 +65,8 @@ function MpsContainer() {
     startDate: startDate,
     endDate: endDate
   });
-  const [updatedRow, setUpdateRows ] = useState([]);
-  const [dataRow, setDataRows ] = useState([]);
+  const [updatedRow, setUpdateRows] = useState([]);
+  const [dataRow, setDataRows] = useState([]);
   const [editRowsModel, setEditRowsModel] = useState({});
   const [ContractList, setContractList] = useState<ContractDetailInMpsAvailableTO[]>([]);
 
@@ -79,7 +74,7 @@ function MpsContainer() {
     setSelectedRows([])
   }, [])
 
-  const processRowUpdate = (newRow) => {
+  const processRowUpdate = (newRow: any) => {
     const newRows = { ...newRow };
     const existingIndex = updatedRow.findIndex(row => row.estimateNo === newRows.estimateNo);
     if (existingIndex !== -1) {
@@ -92,14 +87,23 @@ function MpsContainer() {
     return newRows;
   };
 
-  const uniqueContractsArray = (contracts) => {
+  /* 
+  [78inhyuk]
+  중복 된 것을 제거하고 고유한 것만 남기는 함수
+  contracts 배열을 받아들이고, 이 배열의 각 요소를 반환
+  각 객체의 contractDetailNo 속성을 사용하여 구분한다
+  uniqueContracts 객체를 만들어 각 contractDetailNo 값을 키로 사용하고,
+  해당 contractDetailNo가 이미 uniqueContracts에 존재하는 지 확인
+  만약 존재하지 않거나 이미 저장된 contractDetailNo의 인덱스보다 현재 contract의 인덱스가 더 크다면, 새로운 값을 저장
+  */ 
+  const uniqueContractsArray = (contracts: any) => {
     const uniqueContracts = {};
 
     contracts.forEach(contract => {
-        const { contractDetailNo } = contract;
-        if (!uniqueContracts[contractDetailNo] || uniqueContracts[contractDetailNo].index < contracts.indexOf(contract)) {
-            uniqueContracts[contractDetailNo] = { index: contracts.indexOf(contract), value: contract };
-        }
+      const { contractDetailNo } = contract;
+      if (!uniqueContracts[contractDetailNo] || uniqueContracts[contractDetailNo].index < contracts.indexOf(contract)) {
+        uniqueContracts[contractDetailNo] = { index: contracts.indexOf(contract), value: contract };
+      }
     });
 
     const uniqueContractsArray = Object.values(uniqueContracts).map(item => item.value);
@@ -109,9 +113,12 @@ function MpsContainer() {
 
   const findContractByDetailNo = (data, selectedRows) => {
     return [data.find(contract => contract.contractDetailNo === selectedRows[0])];
-};
+  };
 
-  //MPS등록
+  //MPS등록 
+  /*
+  오류처리 문장
+  */
   const onClickMpsInsert = () => {
     if (selectedRows.length === 0) {
       console.log(selectedRows);
@@ -120,41 +127,60 @@ function MpsContainer() {
         title: '등록할 열을 선택해주세요'
       });
     }
-    
+    /*
+    [78inhyuk]
+      위에서 만든 uniqueContractsArray로 선택된 updataRow를 넣어 data에 담는다
+    */
     try {
-    const data = findContractByDetailNo(uniqueContractsArray(updatedRow),selectedRows)[0];
+      const data = findContractByDetailNo(uniqueContractsArray(updatedRow), selectedRows)[0];
 
-    if (
-      data.mpsPlanDate === null ||
-      data.scheduledEndDate === null ||
-      data.mpsPlanDate === '' ||
-      data.scheduledEndDate === '' ||
-      data.productionRequirement === null ||
-      data.productionRequirement === ''
-     ) {
-      return Swal.fire({
-        icon: 'error',
-        title: '계획일자,출하예정일 \r\n 값을 입력해주세요'
-      });
-     }
-    data.planClassification = "수주상세"
-    const newData = {...data};
-    newData.mpsPlanDate = newData.mpsPlanDate.toISOString().split('T')[0];
-    newData.scheduledEndDate = newData.scheduledEndDate.toISOString().split('T')[0];
+        /*
+        오류처리 문장
+        */
+      if (
+        data.mpsPlanDate === null ||
+        data.scheduledEndDate === null ||
+        data.mpsPlanDate === '' ||
+        data.scheduledEndDate === '' ||
+        data.productionRequirement === null ||
+        data.productionRequirement === ''
+      ) {
+        return Swal.fire({
+          icon: 'error',
+          title: '계획일자,출하예정일 \r\n 값을 입력해주세요'
+        });
+      }
+      /*
+        [78inhyuk]
+          toISOString() : "YYYY-MM-DDTHH:mm:ss.sssZ"
+          split('T')[0]을 하면 YYYY-MM-DD형식으로 반환된다
+        */
+      data.planClassification = "수주상세"
+      const newData = { ...data };
+      newData.mpsPlanDate = newData.mpsPlanDate.toISOString().split('T')[0];
+      newData.scheduledEndDate = newData.scheduledEndDate.toISOString().split('T')[0];
 
-    console.log('newData : ', newData);
-    
-    // MPS 등록 API를 호출하고 데이터를 서버로 보냅니다.
-    convertContractDetailToMps(newData);
-    onClickSearchContract();
-    Swal.fire({
-      icon: 'success',
-      title: 'MPS 등록완료'
-    }).then((result) => {
-      onClickSearchContract();
-    }).catch((err) => {
+      console.log('newData : ', newData);
+
+      // MPS 등록 API를 호출하고 데이터를 서버로 보냅니다.
+        /*
+        [78inhyuk]
+          convertContractDetailToMps는 mpsApi와 mpsAxios에 모두 존재한다
+          convertContractDetailToMps 함수에 newData를 넣어 호출하면,
+          Axios가 실행되어 Back 컨트롤러에 연결된다
+        */
+      convertContractDetailToMps(newData);
       
-    });
+      // Mps 등록가능 조회
+      onClickSearchContract();
+      Swal.fire({
+        icon: 'success',
+        title: 'MPS 등록완료'
+      }).then((result) => {
+        onClickSearchContract();
+      }).catch((err) => {
+        console.log('mps등록오류',err)
+      });
     } catch (error) {
       console.error('서버 요청 중 오류 발생: ', error);
       return Swal.fire({
@@ -163,19 +189,28 @@ function MpsContainer() {
       }).then((result) => {
         onClickSearchContract();
       }).catch((err) => {
-        
+
       });
     }
   };
 
-  const handleEditCell = (params) => {
+  const handleEditCell = (params:any) => {
     const { id, field, value, hasChanged } = params;
     if (hasChanged) {
       // 변경된 값을 처리하는 로직 추가
       console.log(`Cell with id ${id}, field ${field} has new value: ${value}`);
     }
   };
-
+  
+  // Mps 등록가능 조회(useCallback())
+  /* 
+  [78inhyuk]
+  useCallback() : 함수가 렌더링 시마다 새롭게 생성되는데, useCallback()은 함수가 변경되지 않도록 유지해준다
+  searchContractDetailInMpsAvailable함수는 Axios에 만들어져 있으며, setContractList함수를 사용하여 결과를 업데이트 한다.
+  setUpdateRows 호출하여 updata상태를 초기화한다.
+  setContractList는 ContractDetailInMpsAvailableTO[] 타입이 지정되어 있다
+  ContractDetailInMpsAvailableTO[]에 인터페이스로 데이터를 다루는 함수이다
+  */
   const onClickSearchContract = useCallback(() => {
     searchContractDetailInMpsAvailable(setContractList, startDate, endDate);
     setUpdateRows([]);
@@ -255,7 +290,7 @@ function MpsContainer() {
                     const result = itm.filter((s) => !itmSet.has(s));
                     setSelectedRows(result);
                     console.log(result)
-                  } else if(itm.length = 1) {
+                  } else if (itm.length = 1) {
                     console.log(itm)
                     setSelectedRows(itm)
                   } else {
