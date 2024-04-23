@@ -18,7 +18,7 @@ const icons = {
 };
 
 // ==============================|| APPLICATION MENU ITEMS ||============================== //
-
+// 사이드 메뉴바로 디렉토리 구조에 따라 경로를 분배해주고 있다
 const logistic: NavItemType = {
   id: 'logi',
   title: <FormattedMessage id="logi" />,
@@ -124,7 +124,7 @@ const logistic: NavItemType = {
           id: 'salesplan',
           title: <FormattedMessage id="salesplan" />,
           type: 'item',
-          url: '/app/contact/c-list',
+          url: '/logi/salesplan/salesplanPage',
           breadcrumbs: false
         },
         {
@@ -221,13 +221,13 @@ const logistic: NavItemType = {
               id: 'outsourceinfo',
               title: <FormattedMessage id="outsourceinfo" />,
               type: 'item',
-              url: '/hr/salary/BaseSalaryManage/BaseSalaryManagePage'
+              url: '/logi/purchase/outSourcing/OutSourcingForm'
             },
             {
               id: 'outsourceforward',
               title: <FormattedMessage id="outsourceforward" />,
               type: 'item',
-              url: '/hr/salary/BaseExtSalManage/BaseExtSalManagePage'
+              url: '/logi/purchase/test/testForm'
             },
             {
               id: 'outsourceinspection',
