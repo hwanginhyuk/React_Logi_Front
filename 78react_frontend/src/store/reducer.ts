@@ -20,9 +20,6 @@ import estimateReducer from 'pages/logi/estimate/reducer/EstimateReducer';
 import basicinfoReducer from 'pages/logi/basicinfo/reducer/BasicInfoReducer';
 import logisticsinfoReducer from 'pages/logi/basicinfo/reducer/LogisticsInfoReducer';
 import salesReducer from 'pages/logi/delivery/reducer/SalesReducer';
-// import ProductionReducerCombine from 'erp/logistic/production/reducer/index';
-// import transport from 'erp/logistic/transport/reducer/transportReducer';
-// import estimateRegisterReducer from 'pages/logi/estimate/redux/reducer/estimateRegisterReducer';
 import mpsReducer from 'pages/logi/mps/redux/mpsReducer';
 import mrpReducer from 'pages/logi/mrp/redux/mrpToolkit';
 import mrpSimulatorReducer from 'pages/logi/mrp/redux/mrpSimulatorToolkit';
@@ -31,6 +28,8 @@ import orderRegistReducer from 'pages/logi/purchase/orderRegistInfo/redux/OrderR
 import orderInfoReducer from 'pages/logi/purchase/orderRegistInfo/redux/OrderInfoToolkit';
 import stockReducer from 'pages/logi/purchase/stockInfo/redux/StockToolkit';
 import workSiteReducer from 'pages/logi/production/worksite/redux/workSiteToolkit';
+import salesplanReducer from 'pages/logi/salesplan/redux/salesplanStore';
+import outSourcingReducer from 'pages/logi/purchase/outSourcing/redux/outSourcingReducer';
 
 // ==============================|| COMBINE REDUCER ||============================== //
 /*
@@ -44,7 +43,14 @@ const reducer = combineReducers({
   estimate: estimateReducer,            // 🌟new 
   basicinfo: basicinfoReducer,          // 🌟new 
   logisticsinfo: logisticsinfoReducer,  // 🌟new 
-  sales: salesReducer, // 🌟new
+  sales: salesReducer,                  // 🌟new
+  /**
+   * [78inhyuk]
+   * RootReducer 추가
+   * RootReducer : Redux 애플리케이션에서 여러 개의 리듀서를 합쳐 전체 상태 트리를 관리하는 역할
+   */  
+  salesplan: salesplanReducer,          // 🌟new
+  outSourcing: outSourcingReducer,      // 🌟new
 
   // ProductionReducerCombine,
   // Sales,

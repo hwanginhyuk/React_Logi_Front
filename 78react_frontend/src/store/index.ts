@@ -20,7 +20,7 @@ const store = configureStore({
 });
 
 sagaMiddleware.run(LogiRootSaga);
-const persister = persistStore(store);
+const persister = persistStore(store); // 영속성 추가
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -32,3 +32,7 @@ const useDispatch = () => useAppDispatch<AppDispatch>();
 const useSelector: TypedUseSelectorHook<RootState> = useAppSelector;
 
 export { dispatch, persister, store, useDispatch, useSelector };
+/**
+ * [78inhyuk]
+ * configureStore : Redux store를 생성하고 Redux Toolkit의 configureStore 함수를 사용한다
+ */
