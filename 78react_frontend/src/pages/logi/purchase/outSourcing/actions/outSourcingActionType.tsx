@@ -1,0 +1,4 @@
+/************************* 외주관리조회 ****************************/
+export const FETCH_OUTSOURCING_REQUEST = 'FETCH_OUTSOURCING_REQUEST'
+export const FETCH_OUTSOURCING_SUCCESS = 'FETCH_OUTSOURCING_SUCCESS'
+export const FETCH_OUTSOURCING_FAILURE = 'FETCH_OUTSOURCING_FAILURE'

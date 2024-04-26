@@ -1,85 +1,49 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Layout from 'layout';
 import Page from 'components/ui-component/Page';
 import MainCard from 'ui-component/cards/MainCard';
-import ColumnProps from '../../../../types/hr/salary/types';
-import MyMgtTable from 'components/hr/salary/organisms/MyMgtTable';
 import { Button, InputLabel, TextField } from '@mui/material';
-import { OutSourcingTO } from 'types/logi/outsourcing/types';
-import axios from 'axios';
-
+import outSourcingColumn from './columes/outSourcingColumn';
+import { useDispatch, useSelector } from 'store';
+import { fetchOutSourcingRequest } from './actions/outSourcingAction';
+import { DataGrid } from '@mui/x-data-grid';
 
 // ==============================|| TABLE - STICKY HEADER ||============================== //
-
-// ✔️columns information
-const columns: ColumnProps[] = [
-    { id: 'outsourcingNo', label: '외주일련번호', minWidth: 100, align: 'center', editable: true },
-    { id: 'materialStatus', label: '자재출고상태', minWidth: 100, align: 'center', editable: true },
-    { id: 'customerCode', label: '거래처코드', minWidth: 100, align: 'center', editable: true },
-    { id: 'fromDate', label: '지시일', minWidth: 100, align: 'center', editable: true },
-    { id: 'toDate', label: '완료일', minWidth: 100, align: 'center', editable: true },
-    { id: 'itemCode', label: '품목코드', minWidth: 100, align: 'center', editable: true },
-    { id: 'itemName', label: '품목명', minWidth: 100, align: 'center', editable: true },
-    { id: 'unitPrice', label: '단위', minWidth: 100, align: 'center', editable: true },
-    { id: 'instructAmount', label: '지시수량', minWidth: 100, align: 'center', editable: true },
-    { id: 'unitPrice', label: '단가', minWidth: 100, align: 'center', editable: true },
-    { id: 'totalPrice', label: '금액', minWidth: 100, align: 'center', editable: true },
-    { id: 'completeStatus', label: '상태', minWidth: 100, align: 'center', editable: true },
-    { id: 'checkStatus', label: '검사', minWidth: 100, align: 'center', editable: true },
-];
-
 function OutSourcing() {
-    const [fromDate, setFromDate] = useState<Date | null>(null);
-    const [toDate, setToDate] = useState<Date | null>(null);
-    const [customerCode, setCustomerCode] = useState(null);
-    const [itemCode, setItemCode] = useState(null);
-    const [materialStatus, setMaterialStatus] = useState(null);
-    const [rowData, setRowData] = useState<OutSourcingTO[]>([]);
+    const [fromDate, setStartDate] = useState<Date | null>(null);
+    const [toDate, setEndDate] = useState<Date | null>(null);
 
-        
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const dispatch = useDispatch();
+    
+    const outSourcingList = useSelector((state) => {
+        return state.outSourcing.outSourcingList
+    })
+    console.log("outSourcingList?",outSourcingList)
+
+    /**
+     * [78inhyuk]
+     * outsourcing 조회기능 추가 및 소스코드 추가
+     * 콜백함수 사용
+     */
+    // ✔️outsourcingSearch onclick function
+    const outsourcingSearch = () => {
+        const requestData = {
+            fromDate: fromDate || null,
+            toDate: toDate || null
+        };
+        dispatch(fetchOutSourcingRequest(requestData));
+    };
 
     // ✔️지시일, 완료일
     const onChangeDate = (e: any) => {
         if (e.target.id === 'fromDate') {
-            setFromDate(e.target.value);
-            console.log('fromDate', e.target.value);
-            console.log('❇️fromDate', fromDate);
+            setStartDate(e.target.value);
+            console.log('fromDate', e.target.value)
         } else {
-            setToDate(e.target.value);
-            console.log('toDate', e.target.value);
-            console.log('❇️toDate', toDate);
+            setEndDate(e.target.value);
+            console.log('toDate', e.target.value)
         }
     };
-
-    // ✔️outsourcingSearch onclick function
-    const outsourcingSearch = async () => {
-        let param;
-        param = {
-            fromDate: fromDate,
-            toDate: toDate,
-            customerCode: customerCode,
-            itemCode: itemCode,
-            materialStatus: materialStatus
-        }
-        try {
-            const response = await axios.get('http://localhost:9102/purchase/outsourcing/list', {
-                params: param
-            });
-
-            const result = response.data;
-            console.log(result);
-            setRowData(response.data.outSourcingList);
-        } catch (error) {
-            console.error('외주 발주 조회 중 오류 발생: ', error);
-        }
-    };
-
-    function fetchData() {
-        outsourcingSearch();
-    }
 
     // ✔️스타일 지정
     const containerStyle = {
@@ -116,7 +80,11 @@ function OutSourcing() {
                         </Button>
                     </div>
                 </div>
-                <MyMgtTable columns={columns} rowData={rowData} />
+                <DataGrid
+                    rows={outSourcingList}
+                    columns={outSourcingColumn}
+                    pageSize={5}
+                    checkboxSelection />
             </MainCard>
         </Page>
     );

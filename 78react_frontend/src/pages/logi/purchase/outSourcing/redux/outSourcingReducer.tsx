@@ -1,27 +1,46 @@
-import { createSlice } from '@reduxjs/toolkit';
-// @reduxjs/toolkit을 쓰면 미들웨어(Saga, Thunk) 두개 다 쓸 수 있다
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { OutSourcingTO } from 'types/logi/outsourcing/types';
+
+/** 
+ * [78inhyuk]
+ * reducer 생성 및 구현
+*/
+
+interface OutSourcingState {
+    outSourcingList: OutSourcingTO[]; // outSourcingList의 타입은 interface로 만들어서 지정함   
+    error: any | null;          
+}
+
+const initialState: OutSourcingState = {
+    outSourcingList: [],
+    error: null
+};
 
 const outSourcingReducer = createSlice({
     name: 'outSourcing',
-    initialState: {
-        outSourcingRequestData: [],
-        error: null
-    },
+    initialState,
     reducers: {
-        outSourcingListRequest: (state, action) => {
-            console.log('✔️리듀서리퀘스트: outSourcingListRequest', action.payload.outSourcingList);
-            state.error = null;
+        fetchOutSourcingRequest: (state, action: PayloadAction<any>) => {
+            console.log('✔️리듀서리퀘스트: fetchOutSourcingRequest', action.payload.outSourcingList);
+            state.outSourcingList = action.payload.outSourcingList; // 값이 바뀌면 상태 변경
+            state.error = null; // 에러코드 초기화
         },
-        outSourcingListRequestSuccess: (state, action) => {
-            console.log('✔️성공: ousSourcingListRequestSuccess', action.payload);
-            state.outSourcingRequestData = action.payload;
+        fetchOutSourcingSuccess: (state, action: PayloadAction<any>) => {
+            console.log('✔️성공: fetchOutSourcingSuccess', action.payload.outSourcingList);
+            state.outSourcingList = action.payload.outSourcingList; // 에러코드 초기화  
+            state.error = null; // 에러코드 초기화
+        },
+        fetchOutSourcingFailure: (state, action: PayloadAction<any>) => {
+            console.log('✔️실패: fetchOutSourcingFailure', action.payload);
+            state.error = action.payload;
         },
     }
 });
 
 export const {
-    outSourcingListRequest,
-    outSourcingListRequestSuccess
+    fetchOutSourcingRequest,
+    fetchOutSourcingSuccess,
+    fetchOutSourcingFailure
 } = outSourcingReducer.actions;
 
 export default outSourcingReducer.reducer;
