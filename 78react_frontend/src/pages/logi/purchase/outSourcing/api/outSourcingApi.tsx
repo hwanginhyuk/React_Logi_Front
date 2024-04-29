@@ -1,17 +1,21 @@
 import logiApi from 'api/logiApi';
 
-// ✔️조회
-const GET_API_URL = '/purchase/outsourcing/list';
+// ✔️외주발주조회
 
-export const outSourcingListApi = async (param: { fromDate: Date | null; toDate: Date | null }) => {
+export const outSourcingListApi = async (param: { fromDate: string | null; toDate: string | null }) => {
     try {
-        const response = await logiApi.get(GET_API_URL, {
+        const response = await logiApi.get('/purchase/outsourcing/list', {
             params: param
         });
-        console.log('있니?', response.data);
-        return response.data;
+        console.log('있니?', response);
+        return response;
     } catch (error) {
         console.log('error');
     }
 }
+/**
+ * [78inhyuk]
+ * response의 데이터 구조를 확인하고
+ * 반환하여 Saga에서 데이터를 받아야 한다
+ */
 
