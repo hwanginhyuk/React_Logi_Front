@@ -2,50 +2,43 @@ import {
   Button,
   FormControlLabel,
   TextField,
-  Grid,
   RadioGroup,
   Radio,
   Box,
   InputLabel,
   FormControl,
-  Dialog,
-  Modal,
   Select,
   MenuItem
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import Layout from 'layout';
 import { ReactElement } from 'react-markdown/lib/react-markdown';
-import { DataGrid, GridActionsCellItem, GridSaveAltIcon, GridToolbarContainer } from '@mui/x-data-grid';
+import { DataGrid, GridActionsCellItem, GridSaveAltIcon } from '@mui/x-data-grid';
 import MainCard from 'ui-component/cards/MainCard';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Close';
 
-//✔️[수주 관리] 페이지
+//✔️자재명세서 관리페이지(등록)
 function LogisticsBOMRegister() {
   const [divisionCode, setDivisionCode] = useState(null);
   const [divisionCode3, setDivisionCode3] = useState(null);
-
   const [condition, setCondition] = useState(null);
   const [itemCode, setItemCode] = useState(null);
-  const [deployCondition, setDeployCondition] = useState(null);
   const [options, setOptions] = useState([]);
   const [options3, setOptions3] = useState([]);
-
   const [bomData, setBomData] = useState([]);
   const [bomItemName, setBomItemName] = useState([]);
-
   const [noData, setNoData] = useState(0);
-
-  const [rows, setRows] = React.useState(bomData);
   const [id, setId] = useState('');
-  const [noValues, setNoValues] = useState([]);
-  const [maxNo, setMaxNo] = useState(0); // Initialize maxNo with 0
+
+/**
+ * [78inhyuk]
+ * renderCell : DataGrid에서 사용하는 속성 중 하나
+ * 각 cell의 내용을 사용자 지정이 가능하다
+ * cell 내용을 동적으로 생성할 때 주로 사용한다
+ */
 
   const columns = [
     {
@@ -78,9 +71,9 @@ function LogisticsBOMRegister() {
             <Select
               name="contractType"
               onChange={(e) => {
-                setDivisionCode3(e.target.value);
+                setDivisionCode3(e.target.value);   
                 const newValue = e.target.value;
-                params.row.itemClassificationName = newValue;
+                params.row.itemClassificationName = newValue; // 현재 cell의 데이터 값
               }}
             >
               <MenuItem value="IT-CI">완제품</MenuItem>
@@ -441,7 +434,7 @@ function LogisticsBOMRegister() {
     }
   };
 
-  const handleEditClick = async (params) => {
+  const handleEditClick = async (params:any) => {
     console.log('params.idddd', params.id);
 
     try {
@@ -469,7 +462,7 @@ function LogisticsBOMRegister() {
   const [selectedRows, setSelectedRows] = useState(null);
 
 
-  const handleInsertClick = async (params) => {
+  const handleInsertClick = async (params:any) => {
     console.log('params.idddd', params.id);
 
     try {

@@ -1,15 +1,11 @@
 import {
   Button,
   FormControlLabel,
-  TextField,
-  Grid,
   RadioGroup,
   Radio,
   Box,
   InputLabel,
   FormControl,
-  Dialog,
-  Modal,
   Select,
   MenuItem
 } from '@mui/material';
@@ -19,10 +15,8 @@ import { ReactElement } from 'react-markdown/lib/react-markdown';
 import { DataGrid } from '@mui/x-data-grid';
 import MainCard from 'ui-component/cards/MainCard';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import useInput from 'utils/useInput';
 
-//✔️[수주 관리] 페이지
+//✔️자재명세서 관리페이지(조회)
 function LogisticsBOMSearch() {
   const [divisionCode, setDivisionCode] = useState(null);
   const [condition, setCondition] = useState(null);
@@ -51,6 +45,7 @@ function LogisticsBOMSearch() {
     setItemCode(e.target.value);
   };
 
+  // 여기도 api바로호출하네;;
   const fetchData = async (divisionCode: any) => {
     console.log('divisionCode', divisionCode);
     try {
@@ -61,8 +56,8 @@ function LogisticsBOMSearch() {
       });
       const codeList = result.data.codeList;
 
-      const optionData = codeList.map((item) => ({
-        detailCode: item.detailCode, // detailCode를 객체의 detailCode 속성으로 설정
+      const optionData = codeList.map((item:any) => ({
+        detailCode: item.detailCode,        // detailCode를 객체의 detailCode 속성으로 설정
         detailCodeName: item.detailCodeName // detailCodeName을 객체의 detailCodeName 속성으로 설정
       }));
 
