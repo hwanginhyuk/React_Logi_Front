@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import mrpListColumn from 'pages/logi/mrp/mrpColumn';
 import MainCard from 'ui-component/cards/MainCard';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MyCalendar from 'pages/utils/Mycalender';
 import { DataGrid } from '@mui/x-data-grid';
 import { getMrpGatherList, registerMrpGatherList } from 'pages/logi/mrp/redux/gatherToolkit';
 
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 가시성 향상
+ * @param param0 
+ * @returns 
+ */
 
-const MrpGatherResultDialog = ({ item, mrpList }) => {
+const MrpGatherResultDialog = ({ item, mrpList }:any) => {
 
     const [mrpGatherList, setMrpGatherList] = useState([]);
     const [Date, setDate] = useState('');

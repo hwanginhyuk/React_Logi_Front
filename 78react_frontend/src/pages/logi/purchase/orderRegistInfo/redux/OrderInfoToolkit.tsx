@@ -1,10 +1,10 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   orderInfoList: [],
   orderInfoLoading: false,
   orderInfoSuccess: false,
-  orderInfoEroor: null
+  orderInfoEroor: ''
   };
 
   const orderInfoSlice = createSlice({

@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import mrpListColumn from 'pages/logi/mrp/mrpColumn';
 import MainCard from 'ui-component/cards/MainCard';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MyCalendar from 'pages/utils/Mycalender';
 import Swal from 'sweetalert2';
-import useInput from 'utils/useInput';
-import { today } from 'utils/hr/lib';
 import { DataGrid } from '@mui/x-data-grid';
 import { registerOrderDailog } from 'pages/logi/purchase/orderRegistInfo/redux/OrderRegistToolkit';
 
-const OrderDialog = ({selectedRows, orderDialogClose, getOrderListClick}) => {
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 가시성 향상
+ * @param param0 
+ * @returns 
+ */
+
+const OrderDialog = ({selectedRows, orderDialogClose, getOrderListClick}:any) => {
   const [orderDialogList, setOrderDialogList] = useState([]);
-  const [orderList, setOrderList] = useState([]);
   const [date, setDate] = useState(null);
 
   const Columns = [
@@ -46,8 +47,6 @@ const OrderDialog = ({selectedRows, orderDialogClose, getOrderListClick}) => {
     setDate(formattedDate);
     setOrderDialogList(orderDailogListState);
   });
-
-  const OrderDialog = () => {};
 
   const registerMrp = () => {
     try {
