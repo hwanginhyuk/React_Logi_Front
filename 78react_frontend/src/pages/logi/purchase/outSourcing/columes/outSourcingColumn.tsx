@@ -1,6 +1,4 @@
-import { GridColDef } from "@mui/x-data-grid";
-
-const outSourcingColumn: readonly GridColDef<any>[] = [
+const outSourcingColumn = [
     { field: 'outsourcingNo', headerName: '외주일련번호', minWidth: 100, align: 'center', editable: true },
     { field: 'materialStatus', headerName: '자재출고상태', minWidth: 100, align: 'center', editable: true },
     { field: 'customerCode', headerName: '거래처코드', minWidth: 100, align: 'center', editable: true },

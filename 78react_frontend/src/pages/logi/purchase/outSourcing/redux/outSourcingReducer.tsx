@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OutSourcingTO } from 'types/logi/outsourcing/types';
+import { createSlice } from '@reduxjs/toolkit';
 
 /** 
  * [78inhyuk]
@@ -7,32 +6,30 @@ import { OutSourcingTO } from 'types/logi/outsourcing/types';
 */
 
 interface OutSourcingState {
-    outSourcingList: OutSourcingTO[]; // outSourcingList의 타입은 interface로 만들어서 지정함   
-    error: any | null;          
+    outSourcingList: [];  
+    errorMsg: string | null;          
 }
 
 const initialState: OutSourcingState = {
     outSourcingList: [],
-    error: null
+    errorMsg: null
 };
 
 const outSourcingReducer = createSlice({
     name: 'outSourcing',
     initialState,
     reducers: {
-        fetchOutSourcingRequest: (state, action: PayloadAction<any>) => {
-            console.log('✔️리듀서리퀘스트: fetchOutSourcingRequest', action.payload.outSourcingList);
-            state.outSourcingList = action.payload.outSourcingList; // 값이 바뀌면 상태 변경
-            state.error = null; // 에러코드 초기화
+        fetchOutSourcingRequest: (state, action) => {
+            console.log('✔️리듀서리퀘스트: fetchOutSourcingRequest', action.payload);
+            state.outSourcingList = action.payload
         },
-        fetchOutSourcingSuccess: (state, action: PayloadAction<any>) => {
+        fetchOutSourcingSuccess: (state, action) => {
             console.log('✔️성공: fetchOutSourcingSuccess', action.payload.outSourcingList);
-            state.outSourcingList = action.payload.outSourcingList; // 에러코드 초기화  
-            state.error = null; // 에러코드 초기화
+            state.outSourcingList = action.payload.outSourcingList;
         },
-        fetchOutSourcingFailure: (state, action: PayloadAction<any>) => {
-            console.log('✔️실패: fetchOutSourcingFailure', action.payload);
-            state.error = action.payload;
+        fetchOutSourcingFailure: (state, action) => {
+            console.log('✔️실패: fetchOutSourcingFailure', action.payload.errorMsg);
+            state.errorMsg = action.payload.errorMsg;
         },
     }
 });

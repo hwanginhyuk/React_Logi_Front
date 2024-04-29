@@ -1,24 +1,24 @@
-import React, { ReactElement, useState } from 'react';
+import React, { ChangeEvent, ReactElement, useState } from 'react';
 import Layout from 'layout';
 import Page from 'components/ui-component/Page';
 import MainCard from 'ui-component/cards/MainCard';
 import { Button, InputLabel, TextField } from '@mui/material';
 import outSourcingColumn from './columes/outSourcingColumn';
 import { useDispatch, useSelector } from 'store';
-import { fetchOutSourcingRequest } from './actions/outSourcingAction';
 import { DataGrid } from '@mui/x-data-grid';
+import { fetchOutSourcingRequest } from './actions/outSourcingAction';
 
 // ==============================|| TABLE - STICKY HEADER ||============================== //
 function OutSourcing() {
-    const [fromDate, setStartDate] = useState<Date | null>(null);
-    const [toDate, setEndDate] = useState<Date | null>(null);
+    const [fromDate, setStartDate] = useState<string | null>('');
+    const [toDate, setEndDate] = useState<string | null>('');
 
     const dispatch = useDispatch();
-    
+
     const outSourcingList = useSelector((state) => {
         return state.outSourcing.outSourcingList
     })
-    console.log("outSourcingList?",outSourcingList)
+    console.log("outSourcingList?", outSourcingList)
 
     /**
      * [78inhyuk]
@@ -28,14 +28,14 @@ function OutSourcing() {
     // ✔️outsourcingSearch onclick function
     const outsourcingSearch = () => {
         const requestData = {
-            fromDate: fromDate || null,
-            toDate: toDate || null
+            fromDate: fromDate,
+            toDate: toDate
         };
         dispatch(fetchOutSourcingRequest(requestData));
     };
 
     // ✔️지시일, 완료일
-    const onChangeDate = (e: any) => {
+    const onChangeDate = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.id === 'fromDate') {
             setStartDate(e.target.value);
             console.log('fromDate', e.target.value)
@@ -83,7 +83,7 @@ function OutSourcing() {
                 <DataGrid
                     rows={outSourcingList}
                     columns={outSourcingColumn}
-                    pageSize={5}
+                    getRowId={(row) => row.outsourcingNo} // 각 행의 id로는 새로 추가된 outsourcingNo 속성을 사용
                     checkboxSelection />
             </MainCard>
         </Page>
