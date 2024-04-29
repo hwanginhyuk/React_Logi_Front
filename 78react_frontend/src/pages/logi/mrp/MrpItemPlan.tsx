@@ -1,12 +1,8 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
 import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import { textAlign } from "@mui/system";
 import { Button, Grid, Box } from "@mui/material";
 import { getMrpList } from 'pages/logi/mrp/redux/mrpToolkit';
 import MrpGatherResultDialog from './MrpGatherResultDialog';
@@ -24,7 +20,6 @@ const MrpItemPlan = () => {
         { headerName: "요청일자", field: "orderDate", minWidth: 100, flex: 1 },
         { headerName: "소요일자", field: "requiredDate", minWidth: 100, flex: 1 },
         { headerName: "필요수량", field: "requiredAmount", minWidth: 100, flex: 1 },
-        // { headerName: "취합 적용상태", field: "ZmrpGatheringStatus" },
     ];
 
     const dispatch = useDispatch();

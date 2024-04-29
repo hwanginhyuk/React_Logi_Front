@@ -1,5 +1,7 @@
-// 이 페이지는 페이지는 정상적으로 나오는데 애초에 리엑트부터 기능 구현이 안되어있음....
-// 구현을 부탁합니다^^
+/**
+ * [78inhyuk]
+ * 구현 완료
+ */
 
 import React, { ReactElement, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,20 +10,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
     Button,
     Box,
-    Collapse,
     FormControl,
-    IconButton,
     InputLabel,
     MenuItem,
     Select,
-    Stack,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    TextField,
     Grid
 } from '@mui/material';
 
@@ -29,14 +21,11 @@ import {
 import Layout from 'layout';
 import Page from 'components/ui-component/Page';
 import MainCard from 'ui-component/cards/MainCard';
-import { MrpGatheringTO, MrpTO } from 'types/logi/mrp/types';
-import MyDialog from 'pages/utils/MyDialog';
 import MyCalendar from 'pages/utils/Mycalender';
 
 // assets
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
-import GatherDialog from './GatherDialog';
 import { getMrpGatheringList } from 'pages/logi/mrp/redux/gatherToolkit';
 
 const columns = [

@@ -44,6 +44,11 @@ function* watchGatherSaga() {
   yield takeLatest(getMrpGatheringList, handleSearchMrpGathering);
 }
 
-export default function* gatherSaga() {
+export default function* GatherSaga() {
   yield all([fork(watchGatherSaga)]);
 }
+
+/**
+ * [78inhyuk]
+ * 각종 에러 해결 및 RootSaga등록 완료
+ */

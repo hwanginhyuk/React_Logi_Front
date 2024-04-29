@@ -1,17 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+/**
+ * [78inhyuk]
+ * gather 관련 상태와 액션을 정의하는 슬라이스를 생성
+ * Redux 상태와 관련된 리듀서, 액션을 함께 정의한다
+ * 
+ * 각종 에러 해결 완료
+ */
+
 const initialState = {
     gatherList: [],
     gatherLoading: false,
     gatherSuccess: false,
-    gatherError: null,
+    gatherError: '',
     registerGatherLoading: false,
     registerGatherSuccess: false,
-    registerGatherError: null,
+    registerGatherError: '',
     gatheringList: [],
     gatheringLoading: false,
     gatheringSuccess: false,
-    gatheringError: null,
+    gatheringError: '',
   };
 
   const gatherSlice = createSlice({
@@ -42,7 +50,7 @@ const initialState = {
       },
 
       registerMrpGatherListError(state) {
-        state.registerGatherError = false;
+        state.registerGatherLoading = false;
         state.registerGatherError = '에러남';
       },
 

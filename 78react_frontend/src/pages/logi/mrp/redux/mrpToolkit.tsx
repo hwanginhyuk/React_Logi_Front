@@ -4,7 +4,7 @@ const initialState = {
     mrpList: [],
     mrpLoading: false,
     mrpSuccess: false,
-    mrpError: null
+    mrpError: ''
   };
 
   const mrpSlice = createSlice({

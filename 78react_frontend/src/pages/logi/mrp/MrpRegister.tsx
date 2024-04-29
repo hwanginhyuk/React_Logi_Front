@@ -18,59 +18,20 @@ import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
 import { useTheme } from '@mui/material/styles';
 
-//columns information
-// const columns: ColumnProps[] = [
-//   { id: 'mpsNo', label: 'MPS번호', minWidth: 100, align: 'center' },
-//   { id: 'mpsPlanClassification', label: '계획구분', minWidth: 100, align: 'center' },
-//   { id: 'contractDetailNo', label: '수주상세번호', minWidth: 100, align: 'center' },
-//   { id: 'salesPlanNo', label: '판매계획', minWidth: 100, align: 'center' },
-//   { id: 'itemCode', label: '품목코드', minWidth: 100, align: 'center' },
-//   { id: 'itemName', label: '품목명', minWidth: 130, align: 'center' },
-//   { id: 'unitOfMps', label: '단위', minWidth: 100, align: 'center' },
-//   { id: 'mpsPlanDate', label: 'MPS계획일자', minWidth: 120, align: 'center' },
-//   { id: 'mpsPlanAmount', label: 'MPS계획수량', minWidth: 90, align: 'center' },
-//   { id: 'dueDateOfMps', label: '납기일', minWidth: 90, align: 'center' },
-//   { id: 'scheduledEndDate', label: '출하예정일', minWidth: 90, align: 'center' },
-//   { id: 'mrpApplyStatus', label: 'MRP적용상태', minWidth: 90, align: 'center' },
-//   { id: 'description', label: '설명', minWidth: 90, align: 'center' }
-// ];
 
 // ==============================|| TABLE - COLLAPSIBLE ||============================== //
 
 function MrpRegister() {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [checkData, setCheckData] = useState(null);
   const [mrpDialog, setMrpDialog] = useState(false);
-  // const [dateSearchCondition, setDateSearchCondition] = useState('estimateDate');
   const [contractData, setContractData] = useState<MpsTO[]>([]);
-  const [calendarDate, setCalendarDate] = useState({
-    startDate: today,
-    endDate: today
-  });
-  const [contractList, setContractList] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]); // 선택된 행을 저장하기 위한 상태 추가
 
-  // const searchMps = useCallback(() => {
-  //   searchMpsInfoInMrp(setContractList, calendarDate); // searchContractDetailInMpsAvailable -> searchMpsInfo
-  // }, [calendarDate]);
 
   const mrpClose = () => {
     setMrpDialog(false);
   };
-
-  //MPS조회누르면 데이터가 뜨긴하는데 라인이 안맞음 ㅈㅅ;;
-  const [rowData, setRowData] = useState<MpsTO[]>([]);
-  // const mrpRegister = useCallback(() => {
-  //   console.log(selectedRows);
-
-  //   if (!selectedRows) {
-  //     Swal.fire('알림', '모의전개할 mps를 선택하십시오.', 'info');
-  //     return;
-  //   }
-
-  //   // setMrpDialog(true);
-  // }, []);
 
   const mrpRegister = () => {
     console.log(selectedRows);

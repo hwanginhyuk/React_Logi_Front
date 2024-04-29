@@ -36,18 +36,6 @@ function a11yProps(index: any) {
 }
 
 const MrpContainer = (props: any) => {
-  const {
-    searchMpsList,
-    MrpList,
-    searchMrpList,
-    MrpSimulatorList,
-    MrpRegisterList,
-    searchGetMrpList,
-    MrpGetList,
-    searchGatherList,
-    GatherList,
-    GatherInsert
-  } = props;
 
   const [value, setValue] = React.useState(0);
   const theme = useTheme();

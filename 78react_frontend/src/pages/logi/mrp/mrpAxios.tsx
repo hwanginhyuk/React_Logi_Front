@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-//mrp에 적용하기 위한 mrpAxios 파일 생성
+// mrp에 적용하기 위한 mrpAxios 파일 생성
 export const searchMpsList = (setMpsList: any, calendarDate: any) => {
   axios
     .get('http://localhost:8282/logi/production/searchMpsList', {

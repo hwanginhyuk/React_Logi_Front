@@ -86,22 +86,3 @@ export const searchMrpGathering = (param) => {
   );
 }
 
-  // 참조
-  // const updateEstimate = async (updateEstimateDetail: EstimateDetail) => {
-  //   try {
-  //     console.log('\n\nupdateEstimateDetail\n\n', updateEstimateDetail);
-
-  //     // FormData 객체 생성
-  //     const formData = new FormData();
-
-  //     // "batchList" 파라미터에 객체 추가
-  //     formData.append('batchList', JSON.stringify([updateEstimateDetail]));
-
-  //     const response = await axios.post('http://localhost:9102/logisales/estimatedetail/batch', formData);
-  //     console.log('서버 응답 데이터:', response.data); // 서버 응답 데이터를 콘솔에 출력
-  //     alert('견적상세내역이 수정되었습니다.');
-  //   } catch (error) {
-  //     // 오류 처리
-  //   }
-  // };
-

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import mrpListColumn from 'pages/logi/mrp/mrpColumn';
 import MainCard from 'ui-component/cards/MainCard';
 import Swal from 'sweetalert2';
 import { TextField, Button, Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MyCalendar from 'pages/utils/Mycalender';
 import { DataGrid } from '@mui/x-data-grid';
 import { getMrpGatherList, registerMrpGatherList } from 'pages/logi/mrp/redux/gatherToolkit';
 
 
-const MrpGatherResultDialog = ({ mrpList, mrpGatherResultClose, getMrpList }) => {
+const MrpGatherResultDialog = ({ mrpList, mrpGatherResultClose, getMrpList }:any) => {
 
     const [mrpGatherList, setMrpGatherList] = useState([]);
     const [Date, setDate] = useState('');

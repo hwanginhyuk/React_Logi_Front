@@ -1,34 +1,16 @@
-import React, { useState, useCallback, memo, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
-  Paper,
-  TextField,
   Button,
-  Grid,
-  AppBar,
-  InputLabel,
-  Typography,
-  Toolbar,
-  MenuItem,
-  Select,
-  FormControl,
-  OutlinedInput,
-  NativeSelect
+  Grid
 } from '@mui/material';
-import axios from 'axios';
-import UseStyles from './UseStyles';
 import { AgGridReact } from 'ag-grid-react';
 import '@ag-grid-community/styles/ag-grid.css';
 import '@ag-grid-community/styles/ag-theme-material.css';
-import useInput from 'util/useInput';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
 import GatherColumn from './GatherColumn';
-import { today } from 'erp/hr/util/lib';
 import { useThemeSwitcher } from 'mui-theme-switcher';
-import MyDialog from 'util/LogiUtil/SimpleModal';
 import GatherDialog from './GatherDialog';
-import MainCard from '../../../../../template/ui-component/cards/MainCard';
+import MyDialog from 'pages/utils/MyDialog';
+import MainCard from 'ui-component/cards/MainCard';
 
 const MrpGather = (props) => {
   const columnDefs = GatherColumn;
@@ -67,6 +49,14 @@ const MrpGather = (props) => {
   const mrpClose = () => {
     setGatherDialog(false);
   };
+
+/**
+ * [78inhyuk]
+ * 궁금하면 설치해서 해보길 권장
+ * useThemeSwitcher :  MUI 테마 스위처를 사용하여 다크 모드와 라이트 모드를 전환한다
+ * npm install mui-theme-switcher
+ * yarn add mui-theme-switcher
+ */
 
   const { dark } = useThemeSwitcher();
   const onGridSizeChanged = (params) => {

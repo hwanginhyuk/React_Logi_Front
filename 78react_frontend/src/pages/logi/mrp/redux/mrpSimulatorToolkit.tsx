@@ -1,10 +1,15 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+/**
+ * [78inhyuk]
+ * 에러 해결 완료
+ */
 
 const initialState = {
     mrpSimulatorList: [],
     mrpSimulatorLoading: false,
     mrpSimulatorSuccess: false,
-    mrpSimulatorError: null
+    mrpSimulatorError: ''
   };
 
   const mrpSimulatorSlice = createSlice({
@@ -16,7 +21,6 @@ const initialState = {
       },
 
       getMrpSimulatorListSuccess(state, action) {
-        state.mpsLoading = false;
         state.mrpSimulatorList = action.payload.mpsNoList;
         state.mrpSimulatorSuccess = true;
       },
@@ -31,7 +35,6 @@ const initialState = {
       },
 
       postMrpSimulatorSuccess(state) {
-        state.mpsLoading = false;
         state.mrpSimulatorSuccess = true;
       },
 
