@@ -62,6 +62,7 @@ function createData(name: string, calories: number, fat: number, carbs: number, 
   };
 }
 
+// 🚩 스타일 지정
 const textFieldStyle = {
   marginRight: '1vh', // 간격 조정
   flexGrow: 1, // TextField가 남은 공간을 모두 차지하도록 설정
@@ -73,6 +74,17 @@ const buttonStyle = {
   padding: '0.3rem 1rem' // 버튼의 패딩을 조절
 };
 
+/**
+ * [78inhyuk]
+ * 견적부분은 모듈화가 필요할 듯
+ * 여긴 모듈화를 못함... 미안...
+ * 메인페이지에서 API를 호출하게 되면 성능저하가 심하다
+ * 메인페이지에서는 내가 지정한 액션을 reducer에 있는 dispatch로 불러야함...
+ * api를 이용하여 역할을 분리해야됨...
+ * BasicTableData로 row값을 타입을 지정한다
+ * @param row 
+ * @returns 
+ */
 function Row({ row }: { row: BasicTableData }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -108,9 +120,11 @@ function Row({ row }: { row: BasicTableData }) {
       console.log('resulttt123', result.data.gridRowJson);
 
       // 서버에서 가져온 데이터를 options 배열로 가공
-      const optionData = result.data.gridRowJson.map((item) => ({
+      const optionData = result.data.gridRowJson.map((item:any) => ({
         customerCode: item.customerCode,
-        customerName: item.customerName
+        customerName: item.customerName,
+        // errorCode 에러코드 처리 
+        // errorMsg
       }));
       setOptions(optionData);
 
@@ -141,7 +155,7 @@ function Row({ row }: { row: BasicTableData }) {
       });
 
       // 서버에서 가져온 데이터 중 detailCodeName만 options 배열로 설정
-      const optionData2 = result.data.codeList.map((item) => ({
+      const optionData2 = result.data.codeList.map((item:any) => ({
         detailCode: item.detailCode,
         detailCodeName: item.detailCodeName
       }));
@@ -303,60 +317,6 @@ function Row({ row }: { row: BasicTableData }) {
 
   console.log('sumPriceOfEstimateeeeee', sumPriceOfEstimate);
 
-  // const insertEstimate = async () => {
-  //   const newData: ContractData = {
-  //     contractStatus: '',
-  //     customerCode: selectedCustomer.customerCode,
-  //     customerName: selectedCustomer.customerName,
-  //     description: '',
-  //     effectiveDate: effectiveDate,
-  //     estimateDate: estimateDate,
-  //     estimateDetailTOList: [], // 여기를 빈 배열로 초기화
-  //     estimateNo: '',
-  //     estimateRequester: estimateRequester,
-  //     personCodeInCharge: personCodeInCharge,
-  //     personNameCharge: '',
-  //     status: 'INSERT'
-  //   };
-
-  //   const detailData: EstimateDetail[] = [
-  //     {
-  //       status: 'INSERT',
-  //       unitOfEstimate: 'EA',
-  //       estimateNo: '',
-  //       unitPriceOfEstimate: selectedCustomer2.unitOfEstimate,
-  //       estimateDetailNo: '',
-  //       description: '',
-  //       dueDateOfEstimate: dueDateOfEstimate,
-  //       estimateAmount: estimateAmount,
-  //       itemCode: selectedCustomer2.detailCode,
-  //       itemName: selectedCustomer2.detailCodeName,
-  //       sumPriceOfEstimate: sumPriceOfEstimate
-  //     }
-  //   ];
-
-  //   newData.estimateDetailTOList = detailData;
-
-  // try {
-  //   const result = await axios.post(
-  //     'http://localhost:9102/logisales/estimate/new',
-  //     {
-  //       estimateDate: estimateDate,
-  //       newEstimateInfo: newData
-  //     },
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       }
-  //     }
-  //   );
-  //   alert('견적 내역이 등록되었습니다.');
-  //   console.log('Estimate inserted:', result.data);
-  // } catch (error) {
-  //   console.error('Error inserting estimate:', error);
-  // }
-  // };
-
   const insertEstimate = () => {
     const newData: ContractData = {
       contractStatus: '',
@@ -403,9 +363,6 @@ function Row({ row }: { row: BasicTableData }) {
       
     });
   };
-
-  // const message = useSelector((state) => state.estimateRegist.estimateRegistData);
-  // console.log("message",message);
 
   return (
     <>
