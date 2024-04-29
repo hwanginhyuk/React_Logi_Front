@@ -134,18 +134,6 @@ export const searchDialogCustomer = async () => {
   return result.data;
 };
 
-// export const deliveryAvailableApi = (action: any) => {
-//   console.log("hgfhjgfhjgfjh",action);
-//   return axios.get('/sales/deliver/list/contractavailable', {
-//     params: {
-//       startDate: action.payload.startDate,
-//       endDate: action.payload.endDate,
-//       searchCondition: action.payload.searchCondition,
-//       customerCode: action.payload.customerCode
-//     }
-//   });
-// };
-
 // 조회
 const GET_API_URL = '/sales/deliver/list/contractavailable';
 
@@ -161,9 +149,6 @@ export const deliveryAvailableApi = async (ableContractInfo: any) => {
   }
 };
 
-// export const deliveryCompleteApi = () => {
-//   return axios.get('/sales/delivery/list');
-// };
 
 // 납품현황
 const COMPELETE_API_URL = '/sales/delivery/list';
@@ -177,11 +162,3 @@ export const deleveryCompleteApi = async () => {
     console.log('error');
   }
 };
-
-// export function contractDetailListInMpsAvailable(param) {
-//   return axios.get('http://localhost:8284/production/mps/contractdetail-available', {
-//     batchList: param.searchCondition,
-//     contractDate: param.startDate,
-//     personCodeInCharge: param.endDate
-//   });
-// }
