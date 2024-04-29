@@ -1,21 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
-import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import {textAlign} from "@mui/system";
 import {TextField, Button, Grid, Box} from "@mui/material";
 import { getworkSiteLogList } from 'pages/logi/production/worksite/redux/workSiteToolkit';
-import WorkSiteDialog from './WorkSiteDialog';
 
-const WorkSiteLog = (props) => {
+
+const WorkSiteLog = () => {
     const [list, setList] = useState([]);
-    const [size, setSize] = useState('50vh');
-    const [workSiteDialog, setWorkSiteDialog] = useState(false);
-    const [workOrderNo, setWorkOrderNo] = useState('');
     const [date, setDate] = useState(null);
 
     const column = [
@@ -32,7 +24,7 @@ const WorkSiteLog = (props) => {
     const dispatch = useDispatch();
 
     const state = useSelector((state) => {
-      return state.workSite.workSiteLogList;
+        return state.workSite.workSiteLogList;
     });
 
     useEffect(() => {
@@ -43,6 +35,7 @@ const WorkSiteLog = (props) => {
         dispatch(getworkSiteLogList(date));
     }
 
+    // 포맷을 통한 date 객체 구하기
     const onChangeDate = (e: any) => {
         const date = e.target.valueAsDate;
         const year = date.getFullYear();

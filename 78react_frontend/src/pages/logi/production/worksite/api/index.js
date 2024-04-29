@@ -1,6 +1,15 @@
 import axios from 'api/logiApi'; //'http://localhost:9102/logi'
 
-export const searchWorkSiteList = (param) => {
+/**
+ * [78inhyuk]
+ * axios를 이용한 Api 호출 구현
+ * FormData : JS 객체, 파일업로드 및 form 데이터 전송에 사용
+ * FormData.append()를 사용하여 키값의 데이터를 생성
+ * @param {*} param 
+ * @returns 
+ */
+
+export const searchWorkSiteList = () => {
     return axios.get('/quality/workorder/list');
 };
 
@@ -38,20 +47,3 @@ export const searchWorkSiteLogList = (param) => {
       }
   });
 };
-
-// export const mrpGatherInsert = (param) => {
-//   console.log(param);
-
-//   const mrpNoList = param.mrpList.map(item => item.mrpNo);
-//   const mrpNoListString = mrpNoList.join(',');
-
-//   const formData = new FormData();
-
-//   formData.append('mrpGatheringRegisterDate', param.Date);
-//   formData.append('mrpNoList', JSON.stringify(mrpNoListString));
-//   formData.append('mrpNoAndItemCodeList', JSON.stringify(param.mrpList));
-
-//   axios.post(
-//     '/production/mrp/gathering', formData
-//   );
-// }

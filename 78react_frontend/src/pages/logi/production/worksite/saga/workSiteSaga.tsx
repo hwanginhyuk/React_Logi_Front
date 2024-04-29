@@ -5,7 +5,7 @@ import { getworkSiteList, getworkSiteListSuccess, getworkSiteListError,
     getworkSiteLogList, getworkSiteLogListSuccess, getworkSiteLogListError } from 'pages/logi/production/worksite/redux/workSiteToolkit';
 import { searchWorkSiteList, searchWorkSiteSituationList, workCompletion, searchWorkSiteLogList } from 'pages/logi/production/worksite/api';
 
-function* handleSearchWorkSite(action: any) {
+function* handleSearchWorkSite() {
   try {
     const response = yield call( searchWorkSiteList );
     const worksite = response.data.gridRowJson;
@@ -26,11 +26,12 @@ function* handleSearchWorkSiteSituation(action: any) {
     }
   }
 
+  // 24/04/29 수정
   function* handleWorkcompletion(action: any) {
     try {
       const params = action.payload;
       yield call( workCompletion, params );
-      yield put(registerWorkcompletionSuccess());
+      yield put(registerWorkcompletionSuccess(params));
     } catch (error) {
       yield put(registerWorkcompletionError());
     }
@@ -40,7 +41,7 @@ function* handleSearchWorkSiteSituation(action: any) {
     try {
       const param = action.payload;
       const response = yield call( searchWorkSiteLogList, param );
-      const worksiteLog = response.data.gridRowJson.map((item, index) => ({
+      const worksiteLog = response.data.gridRowJson.map(({item, index}:any) => ({
         id: `id${index + 1}`,
         ...item
       }));

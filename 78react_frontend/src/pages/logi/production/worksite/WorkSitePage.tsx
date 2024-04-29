@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Box, Tab, Tabs, Theme, useTheme } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import Page from 'components/ui-component/Page';
-import PropTypes from 'prop-types';
 import Layout from 'layout';
 import WorkSite from './WorkSite';
 import WorkSiteLog from './WorkSiteLog';
+
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 간소화 완료 
+ */
 
 interface TabPanelProps {
   children?: React.ReactNode;

@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import { Box, Tab, Tabs, Theme, useTheme } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import Page from 'components/ui-component/Page';
-import PropTypes from 'prop-types';
 import Layout from 'layout';
 import WorkInstruction from './WorkInstruction';
 import WorkOrderStatus from './WorkOrderStatus';
 import WorkPerformanceManagement from './WorkPerformanceManagement';
-import WorkOrderDialog from './WorkOrderDialog';
+import { ReactElement } from 'react-markdown/lib/react-markdown';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -29,6 +28,19 @@ function a11yProps(index: number) {
     'aria-controls': `simple-tabpanel-${index}`
   };
 }
+
+/**
+ * [78inhyuk]
+ * useTheme :  컴포넌트에서 테마 속성을 가져오는 데 사용, 아래는 useTheme의 속성
+ *  customShadows: customShadows;
+ * customization: Typography;
+ * darkTextSecondary: string;
+ * textDark: string;
+ * grey500: string;
+ * darkTextPrimary: string;
+ * 다크모드 라이트모드에 따라 컴포넌트의 스타일이 달라지도록 설정
+ * 혹은 정의된 색상을 사용하여 컴포넌트 스타일링할 때 사용
+ */
 
 const WorkInstructionPage = () => {
   const theme: Theme = useTheme();

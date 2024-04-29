@@ -1,18 +1,13 @@
-import {Button, Grid, NativeSelect} from '@mui/material';
+import { Button, Grid } from '@mui/material';
 import Axios from 'axios';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import MyGrid from 'pages/utils/Mygrid';
 import MainCard from 'ui-component/cards/MainCard';
 import { DataGrid } from '@mui/x-data-grid';
-import {map} from "lodash";
+
 
 function WorkOrderDialog(props) {
     const [list, setList] = useState([]);
-    const [workpalce, setWorkplace] = useState([]);
-    const [divisionCode, setDivisionCode] = useState([]);
-    const [workPlaceCode, setWorkPlaceCode] = useState();
-    const [productionProcessCode, setProductionProcessCode] = useState();
     const column = [
             { headerName: '소요량취합번호', field: 'mrpGatheringNo' , minWidth: 150, flex: 1},
             { headerName: '품목분류', field: 'itemClassification' , minWidth: 100, flex: 1},
@@ -25,7 +20,7 @@ function WorkOrderDialog(props) {
             { headerName: '작업지시기한', field: 'orderDate' , minWidth: 100, flex: 1},
             { headerName: '작업완료기한', field: 'requiredDate' , minWidth: 100, flex: 1}
     ];
-    const contractSearch = (params) => {
+    const contractSearch = (params:any) => {
 
         var result = window.confirm('현재 모의 전개된 결과를 작업하시겠습니까?');
         if (result) {

@@ -1,21 +1,26 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+/**
+ * [78inhyuk]
+ * 에러 및 소스코드 수정완료
+ */
 
 const initialState = {
     workSiteList: [],
     workSiteLoading: false,
     workSiteSuccess: false,
-    workSiteError: null,
+    workSiteError: '',
     WorkSiteSituationList: [],
     WorkSiteSituationLoading: false,
     WorkSiteSituationSuccess: false,
-    WorkSiteSituationError: null,
+    WorkSiteSituationError: '',
     WorkcompletionLoading: false,
     WorkcompletionSuccess: false,
-    WorkcompletionError: null,
+    WorkcompletionError: '',
     workSiteLogList: [],
     workSiteLogLoading: false,
     workSiteLogSuccess: false,
-    workSiteLogError: null
+    workSiteLogError: ''
   };
 
   const workSiteSlice = createSlice({
@@ -58,7 +63,7 @@ const initialState = {
         state.WorkcompletionError = '에러남';
       },
       getworkSiteLogList(state) {
-        state.workSiteLogListLoading = true;
+        state.workSiteLogLoading = true;
       },
       getworkSiteLogListSuccess(state, action) {
         state.workSiteLogList = action.payload;
