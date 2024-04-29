@@ -12,7 +12,6 @@ import {
   InputLabel,
   Radio,
   RadioGroup,
-  Stack,
   Table,
   TableBody,
   TableCell,
@@ -26,7 +25,6 @@ import Layout from 'layout';
 import Page from 'components/ui-component/Page';
 import MainCard from 'ui-component/cards/MainCard';
 import SubCard from 'ui-component/cards/SubCard';
-import SecondaryAction from 'ui-component/cards/CardSecondaryAction';
 import { EstimateTO, EstimateDetail } from 'types/logi/estimate/types';
 // assets
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -49,6 +47,7 @@ type BasicTableData = {
   history?: { date: string; customerId: string; amount: number }[];
 };
 
+// 🚩스타일지정
 const buttonStyle = {
   fontSize: '0.8rem', // 버튼의 폰트 크기를 줄임
   padding: '0.3rem 1rem' // 버튼의 패딩을 조절
@@ -57,8 +56,9 @@ const buttonStyle = {
 const textFieldStyle = {
   marginRight: '1vh', // 간격 조정
   flexGrow: 1, // TextField가 남은 공간을 모두 차지하도록 설정
-  maxWidth: '120px' // 가로 크기 조정s
+  maxWidth: '120px' // 가로 크기 조정
 };
+
 function Row({ item }: { item: EstimateTO }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -77,6 +77,13 @@ function Row({ item }: { item: EstimateTO }) {
     selectedOption: item.estimateDetailTOList[0].itemName,
     unitPriceOfEstimate: item.estimateDetailTOList[0].unitPriceOfEstimate
   });
+
+/**
+ * [78inhyuk]
+ * item.estimateDetailTOList : 배열의 요소를 복사한 새로운 배열이라고 생각하면된다
+ * map을 통해서 estimateDetailData 배열에는 item.estimateDetailTOList 배열의 요소에 대한 복사본이 적용된다
+ * 상태를 초기화 한뒤 setEstimateDetailData 함수를 사용하여 상태를 업데이트한다
+ */
   const [estimateDetailData, setEstimateDetailData] = useState(item.estimateDetailTOList.map((detail) => ({ ...detail })));
 
   useEffect(() => {
@@ -91,7 +98,7 @@ function Row({ item }: { item: EstimateTO }) {
         }
       });
       // 서버에서 가져온 데이터 중 detailCodeName만 options 배열로 설정
-      const optionData = result.data.codeList.map((item) => item.detailCodeName);
+      const optionData = result.data.codeList.map((item:any) => item.detailCodeName);
       setOptions(optionData);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -190,6 +197,7 @@ function Row({ item }: { item: EstimateTO }) {
     setEstimateDetailData(updatedEstimateDetailData);
   };
 
+  // 합계액 계산함수
   const calculateUnitPrice = (selectedOption: any, estimateAmount: number) => {
     console.log('selectedOptionselectedOption', selectedOption);
     let unitPrice = 0;
