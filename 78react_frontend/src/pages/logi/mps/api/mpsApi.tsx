@@ -3,9 +3,6 @@ import Swal from 'sweetalert2';
 
 /* 
 [78inhyuk]
-툴킷과 다르게 비동기 처리 saga사용을 위해 유지하는중
-없어도 작동하는데 아무 지장없음
-구조를 자세히 보면 api와 axios의 구조가 조금 다름
 mpsAxios에는 async ~ await 구조가 없는걸 알수있다
 */
 const getmpsData = async (startDate: any, endDate: any, dateSearchCondition: any) => {

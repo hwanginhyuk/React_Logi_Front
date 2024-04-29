@@ -43,7 +43,6 @@ mpsApi에서도 같은 것을 호출하고 있다.
 mpsApi에서 호출하는 방식은 주로 fetch를 사용하며
 mpsAxios에서 호출하는 방식이 axios사용하게 되어있다
 현재 두개 모두 같은 함수를 호출하여 같은 axios를 호출하고 있으나 오류는 없다
-이러한 경우는 성능의 문제를 일으킬 것이라고 판단한다 
 */ 
 
 export const convertContractDetailToMps = (contract: any) => {
