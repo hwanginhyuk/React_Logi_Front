@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {Box, Tab, Tabs} from '@mui/material';
-import {useTheme} from '@mui/material/styles';
+import React, { useState } from 'react';
+import { Box, Tab, Tabs } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import MainCard from 'ui-component/cards/MainCard';
 import Page from 'components/ui-component/Page';
 import Layout from 'layout';
 import PropTypes from 'prop-types';
 import LogisticsBOMRegister from './LogisticsBOMRegister';
 import LogisticsBOMSearch from './LogisticsBOMSearch';
-import LogisticsBOMTest from './LogisticsBOMTest';
+import { ReactElement } from 'react-markdown/lib/react-markdown';
 
-function TabPanel({children, value, index}) {
+function TabPanel({ children, value, index }:any) {
     return (
         <div
             role="tabpanel"
@@ -18,29 +18,29 @@ function TabPanel({children, value, index}) {
             aria-labelledby={`simple-tab-${index}`}>
             {
                 value === index && <Box sx={{
-                            p: 0
-                        }}>{children}</Box>
+                    p: 0
+                }}>{children}</Box>
             }
         </div>
     );
-  }
-  
-  TabPanel.propTypes = {
+}
+
+TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.any.isRequired,
     value: PropTypes.any.isRequired
-  };
-  
-  
-function a11yProps(index) {
-    return {id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}`};
+};
+
+
+function a11yProps(index:any) {
+    return { id: `simple-tab-${index}`, 'aria-controls': `simple-tabpanel-${index}` };
 }
 
 function LogisticsBOM() {
     const theme = useTheme();
     const [value, setValue] = useState(0);
 
-    const handleChange = (event, newValue) => {
+    const handleChange = ({event, newValue}:any) => {
         setValue(newValue);
     };
 
@@ -54,7 +54,7 @@ function LogisticsBOM() {
                     onChange={handleChange}
                     aria-label="simple tabs example"
                     sx={{
-                        '& a' : {
+                        '& a': {
                             fontWeight: 'bold',
                             minHeight: 'auto',
                             minWidth: 10,
@@ -69,30 +69,30 @@ function LogisticsBOM() {
                             alignItems: 'center',
                             justifyContent: 'center'
                         },
-                        '& a.Mui-selected' : {
+                        '& a.Mui-selected': {
                             color: theme.palette.secondary.main
                         },
-                        '& a > svg' : {
+                        '& a > svg': {
                             marginBottom: '0px !important',
                             marginRight: 1.25
                         },
                         mb: 3
                     }}>
-                    <Tab label="BOM 정전개/역전개" {...a11yProps(0)}/>
-                    <Tab label="BOM 등록/수정" {...a11yProps(1)}/> {/* <Tab label="BOM 테스트" {...a11yProps(1)} /> */}
+                    <Tab label="BOM 정전개/역전개" {...a11yProps(0)} />
+                    <Tab label="BOM 등록/수정" {...a11yProps(1)} /> {/* <Tab label="BOM 테스트" {...a11yProps(1)} /> */}
 
                 </Tabs>
 
                 <TabPanel value={value} index={0}>
-                    <LogisticsBOMSearch/>
+                    <LogisticsBOMSearch />
                 </TabPanel>
 
                 <TabPanel value={value} index={1}>
-                    <LogisticsBOMRegister/>
+                    <LogisticsBOMRegister />
                 </TabPanel>
 
                 {/* <TabPanel value={value} index={2}>
-           <LogisticsBOMTest />
+            <LogisticsBOMTest />
         </TabPanel> */
                 }
             </MainCard>
@@ -100,7 +100,7 @@ function LogisticsBOM() {
     );
 }
 
-LogisticsBOM.getLayout = function getLayout(Page) {
+LogisticsBOM.getLayout = function getLayout(Page:ReactElement) {
     return <Layout>{Page}</Layout>;
 };
 
