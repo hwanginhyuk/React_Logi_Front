@@ -1,19 +1,19 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
 import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import {textAlign} from "@mui/system";
 import {Button, Grid, Box} from "@mui/material";
 import { getworkSiteList } from 'pages/logi/production/worksite/redux/workSiteToolkit';
 import WorkSiteDialog from './WorkSiteDialog';
 
-const WorkSite = (props) => {
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 간소화 완료 
+ */
+
+const WorkSite = () => {
     const [list, setList] = useState([]);
-    const [size, setSize] = useState('50vh');
     const [workSiteDialog, setWorkSiteDialog] = useState(false);
     const [workOrderNo, setWorkOrderNo] = useState('');
     const [workSiteCourse, setWorkSiteCourse] = useState('');
@@ -38,7 +38,7 @@ const WorkSite = (props) => {
     const dispatch = useDispatch();
 
     const state = useSelector((state) => {
-      return state.workSite.workSiteList;
+        return state.workSite.workSiteList;
     });
 
     useEffect(() => {
@@ -50,7 +50,7 @@ const WorkSite = (props) => {
         console.log(state);
     }, [state])
 
-    const click1 = (Course) => {
+    const click = (Course) => {
         setWorkOrderNo (selectRows[0]);
         for (let i = 0; i < list.length; i++) {
             if (list[i].workOrderNo === selectRows[0]) {
@@ -76,12 +76,12 @@ const WorkSite = (props) => {
                 content={false}
                 title={'제품 작업장'}
                 secondary={<Grid item xs={12} sm={6} sx={{textAlign: 'right'}}>
-                    <Button variant="contained" color="secondary" onClick={()=>click1('Production')}
+                    <Button variant="contained" color="secondary" onClick={()=>click('Production')}
                             style={{ marginRight: '1vh', marginTop: '1vh' }}
                     >
                         제품 제작
                     </Button>
-                    <Button variant="contained" color="secondary" onClick={()=>click1('SiteExamine')}
+                    <Button variant="contained" color="secondary" onClick={()=>click('SiteExamine')}
                             style={{ marginRight: '1vh', marginTop: '1vh' }}
                     >
                         판매제품 검사
@@ -105,17 +105,17 @@ const WorkSite = (props) => {
                 checkboxSelection
                 disableRowSelectionOnClick
                 onRowSelectionModelChange={itm => {
-                  if (itm.length > 1) {
-                    const itmSet = new Set(selectRows);
-                    const result = itm.filter((s) => !itmSet.has(s));
-                    setSelectRows(result);
-                    console.log(result)
-                  } else if(itm.length = 1) {
-                    console.log(itm)
-                    setSelectRows(itm)
-                  } else {
-                    setSelectRows([null]);
-                  }
+                    if (itm.length > 1) {
+                        const itmSet = new Set(selectRows);
+                        const result = itm.filter((s) => !itmSet.has(s));
+                        setSelectRows(result);
+                        console.log(result)
+                    } else if(itm.length = 1) {
+                        console.log(itm)
+                        setSelectRows(itm)
+                    } else {
+                        setSelectRows([null]);
+                    }
                 }}
                 rowSelectionModel={selectRows}
                 />

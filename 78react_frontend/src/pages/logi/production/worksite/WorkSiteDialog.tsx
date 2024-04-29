@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import mrpListColumn from 'pages/logi/mrp/mrpColumn';
 import MainCard from 'ui-component/cards/MainCard';
 import Swal from 'sweetalert2';
-import { TextField, Button, Box, Grid } from '@mui/material';
+import { Button, Box, Grid } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import MyCalendar from 'pages/utils/Mycalender';
-import useInput from 'utils/useInput';
-import { today } from 'utils/hr/lib';
 import { DataGrid } from '@mui/x-data-grid';
 import { getWorkSiteSituationList, registerWorkcompletion } from 'pages/logi/production/worksite/redux/workSiteToolkit';
 
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 간소화 완료 
+ */
 
 const WorkSiteDialog = (props) => {
 
   const [list, setList] = useState([]);
-  const [Date, setDate] = useState('');
 
   const Columns = [
     { headerName: '작업지시번호', field: 'workOrderNo', width: 150 },

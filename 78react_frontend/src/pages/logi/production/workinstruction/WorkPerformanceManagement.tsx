@@ -3,10 +3,14 @@ import MainCard from 'ui-component/cards/MainCard';
 import Axios from 'axios';
 import Swal from 'sweetalert2';
 import {Button, Grid, Box} from "@mui/material";
-import {textAlign} from "@mui/system";
 import { DataGrid } from '@mui/x-data-grid';
 
-function WorkPerformanceManagement(props) {
+/** 
+ * [78inhyuk]
+ * 오류 및 소스코드 수정 완료
+*/
+
+function WorkPerformanceManagement() {
     const [list, setList] = useState([]);
 
     const column = [
@@ -18,7 +22,6 @@ function WorkPerformanceManagement(props) {
                 flex: 1,
             },
             { headerName: '작업지시일련번호', field: 'workOrderNo', minWidth: 150, flex: 1,},
-            // { headerName: '주생산계획번호', field: 'mpsNo', minWidth: 150, flex: 1,},
             {
                 headerName: '수주상세일련번호',
                 field: 'contractDetailNo',
@@ -39,7 +42,7 @@ function WorkPerformanceManagement(props) {
             { headerName: '공정성공율', field: 'workSuccessRate' , minWidth: 100 ,flex: 1,}
     ];
 
-    const onClick = e => {
+    const onClick = (e:any) => {
         Axios.get('http://localhost:9102/quality/workorder/performance-list')
             .then(({data}) => {
 
@@ -78,15 +81,7 @@ function WorkPerformanceManagement(props) {
                 rowsPerPageOptions={[10]}
                 getRowId={(row) => row.workOrderCompletionDate}
                 />
-            </Box>      
-
-            {/* <MyGrid
-                list={list}
-                column={column}
-                size={size}>
-            </MyGrid> */}
-
-            
+            </Box>         
         </MainCard>
     );
 }
