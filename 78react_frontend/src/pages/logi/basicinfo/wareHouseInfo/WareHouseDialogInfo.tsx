@@ -1,8 +1,6 @@
 import { Button, Container, CssBaseline, Grid, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
