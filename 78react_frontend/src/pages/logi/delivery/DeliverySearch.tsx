@@ -1,7 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
-  Checkbox,
   FormControlLabel,
   Radio,
   RadioGroup,
@@ -17,23 +16,19 @@ import {
   Box
 } from '@mui/material';
 import MyCalendar from 'pages/utils/Mycalender';
-import MyDialog from 'pages/utils/MyDialog';
 import moment from 'moment';
-import Axios from 'axios';
 import DeliveryDetailGrid from './DeliveryDetailGrid';
 import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
-import SimpleModal from 'components/forms/plugins/Modal/SimpleModal';
 import Layout from 'layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { deliveryAvailableRequest } from './reducer/SalesReducer';
 import Page from 'ui-component/Page';
-import ContractDetailModal from './ContractDetailModal';
 import axios from 'axios';
 import { ContractDetail } from 'types/logi/contract/tpyes';
 import { DataGrid } from '@mui/x-data-grid';
 
-function DeliverySearch(props) {
+function DeliverySearch() {
   let today = moment(new Date()).format('yyyy-MM-DD');
   const [startDate, setStartDate] = useState(today);
   const [endDate, setEndDate] = useState(today);
@@ -41,7 +36,6 @@ function DeliverySearch(props) {
   const [dateSearch, setDateSearch] = useState(true);
   const [selDelivery, setSelDelivery] = useState();
   const [contractDetailNo, setContractDetailNo] = useState();
-  const [deliveryDetailGrid, setDeliveryDetailGrid] = useState();
 
   const [selected, setSelected] = useState([]);
   const [contractDetail, setContractDetail] = useState<ContractDetail[]>([]);
@@ -51,7 +45,11 @@ function DeliverySearch(props) {
   const dispatch = useDispatch();
 
   let detailList = useSelector((state: any) => state.sales.contractAvailableList);
-  // state.sales.contractavailableList가 불리언 값인지 확인
+  /**
+   * [78inhyuk]
+   * state.sales.contractavailableList가 boolean 값인지 확인
+   * deliverySearch 함수에서 boolean값에 따라 적용되게 해두었다
+   */ 
   // console.log(typeof detailList);
 
   const columns = [
@@ -166,8 +164,6 @@ function DeliverySearch(props) {
     }
   };
 
-  const onCellClicked = (param) => {};
-
   const onChangeDate = (e: any) => {
     if (e.target.id === 'startDate') {
       setStartDate(e.target.value);
@@ -175,8 +171,6 @@ function DeliverySearch(props) {
       setEndDate(e.target.value);
     }
   };
-
-  const onDialogCellClicked = (params) => {};
 
   const customerSearchClick = () => {};
 
@@ -222,6 +216,12 @@ function DeliverySearch(props) {
     setEndDate(endDate);
   };
 
+  /**
+   * [78inhuk]
+   * 조회버튼을 누르면 함수 호출
+   * 호출될 때 boolean값을 가져오는데 가져온 데이터가 true이면 해당 값을 셋팅한다
+   * customerSearch인지, dateSearch인지 선택한 값으로 검색한다
+   */
   const deliverySearch = () => {
     let param = {};
     if (customerSearch === true) {
@@ -244,7 +244,11 @@ function DeliverySearch(props) {
         })
       };
     }
-
+    /**
+     * [78inhyuk]
+     * 위의 값을 store로 보내서 상태 관리한다
+     * reducer를 통해 새로운 상태를 반환받는다
+     */ 
     dispatch(deliveryAvailableRequest(param));
   };
 
@@ -305,6 +309,7 @@ function DeliverySearch(props) {
               </TableRow>
             </TableHead>
             <TableBody>
+              {/* Array.isArray() : 배열인지 아닌지 확인하는 문법 */}
               {Array.isArray(detailList) &&
                 detailList.map((list: any, index: number) => {
                   const isSelected = selected.includes(list);

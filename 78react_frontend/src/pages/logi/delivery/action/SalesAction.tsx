@@ -1,5 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 import * as types from './SalesActionType';
+// SaleActionType에서 가져온 액션 생성자를 액션 타입에 매칭되는 새로운 액션을 생성해준다.
+// 리듀서에서 액션을 처리할 때 사용되며, Redux 스토어로 디스패치 될 때 상태를 변경하는데 사용된다
 
 /***************************** 납품 완료 현황 조회 *********************************/
 export const deliveryCompleteRequest = createAction(types.DELIVERY_COMPLETE_REQUEST);

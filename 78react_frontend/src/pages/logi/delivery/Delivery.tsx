@@ -25,6 +25,11 @@ function TabPanel({ children, value, index }: TabPanelProps) {
   );
 }
 
+/**
+ * a11yProps : 접근성(Accessibility)을 개선하는 함수
+ * 이 함수를 호출할 때 인덱스 값을 전달하여 각 탭에 대한 접근성 속성을 생성
+ */
+
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
@@ -75,7 +80,7 @@ function Delivery(props) {
         <DeliverySearch />
       </TabPanel>
 
-      <TabPanel value={value} index={1}>
+      <TabPanel value ={value} index={1}>
         <DeliveryInfo />
       </TabPanel>
     </MainCard>

@@ -7,17 +7,24 @@ import MainCard from 'ui-component/cards/MainCard';
 import { deliveryCompleteRequest } from './reducer/SalesReducer';
 // import { deliveryCompleteRequest } from './action/SalesAction';
 
-function DeliveryInfo(props) {
+function DeliveryInfo(props:any) {
+  // string 타입지정시 대문자 사용하면 안된다. 클래스라고 인식한다
   const [selected, setSelected] = useState<string[]>([]); // 선택된 아이템의 문자열 배열
 
   const dispatch = useDispatch();
 
+  /**
+   *  useSelector : 스토어의 상태값을 반환해주는 역할을한다 
+   *  useEffect로 컴포넌트가 렌더링 될 때마다 실행하여도 되지만
+   *  이벤트함수를 이용하여 dispatch하여도 된다
+   */
   const deliveryCompleteData = useSelector((state: any) => state.sales.deliveryCompleteData);
-  console.log('delListdelListdelList', deliveryCompleteData);
+  console.log('delListdelListdelList?', deliveryCompleteData);
 
   useEffect(() => {
     dispatch(deliveryCompleteRequest());
   }, [dispatch]);
+  
   const columns = [
     { headerName: '납품번호', field: 'deliveryNo' },
     { headerName: '견적번호', field: 'estimateNo', hide: true },
