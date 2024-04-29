@@ -56,18 +56,8 @@ const contractlistcolumn = [
 function MpsContainer() {
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [dateSearchCondition, setDateSearchCondition] = useState('includeMrpApply');
   const [selectedRows, setSelectedRows] = useState([]); // 선택된 행을 저장하기 위한 상태 추가
-  const [contractData, setContractData] = useState<MpsTO[]>([]);
-  const [selList, setSelList] = useState([]);
-  const [mpsDialog, setMpsDialog] = useState(false);
-  const [calendarDate, setCalendarDate] = useState({
-    startDate: startDate,
-    endDate: endDate
-  });
   const [updatedRow, setUpdateRows] = useState([]);
-  const [dataRow, setDataRows] = useState([]);
-  const [editRowsModel, setEditRowsModel] = useState({});
   const [ContractList, setContractList] = useState<ContractDetailInMpsAvailableTO[]>([]);
 
   useEffect(() => {
