@@ -1,17 +1,23 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+/**
+ * [78inhyuk]
+ * 오류 수정
+ */
 
 const initialState = {
   orderList: [],
   orderLoading: false,
   orderSuccess: false,
-  orderError: null,
+  orderError: '',
   orderDailogList: [],
   orderDailogListLoading: false,
   orderDailogListSuccess: false,
-  orderDailogListError: null,
+  orderDailogListError: '',
+  orderListLoading: false,
   registerOrderLoading: false,
   registerOrderSuccess: false,
-  registerOrderError: null
+  registerOrderError: ''
   };
 
   const orderRegistSlice = createSlice({

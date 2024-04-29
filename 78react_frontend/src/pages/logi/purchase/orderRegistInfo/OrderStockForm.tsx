@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Box, Tab, Tabs, Theme, useTheme } from '@mui/material';
 import MainCard from 'ui-component/cards/MainCard';
 import Page from 'components/ui-component/Page';
-import PropTypes from 'prop-types';
 import Layout from 'layout';
 import OrderRegistForm from './OrderRegistForm';
 import ShowOrderInfoForm from './ShowOrderInfoForm';
+
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 가시성 향상
+ * @param param0 
+ * @returns 
+ */
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -32,7 +38,7 @@ const OrderStockForm = () => {
   const theme: Theme = useTheme();
   const [value, setValue] = useState(0);
 
-  const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+  const handleChange = (newValue: number) => {
     setValue(newValue);
   };
 

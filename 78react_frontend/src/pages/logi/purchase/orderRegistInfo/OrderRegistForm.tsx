@@ -1,20 +1,22 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
 import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import { textAlign } from '@mui/system';
 import { Button, Grid, Box } from '@mui/material';
 import MyCalendar from 'pages/utils/Mycalender';
 import OrderDialog from './OrderDialog';
 import { getOrderList, getOrderDailogList } from 'pages/logi/purchase/orderRegistInfo/redux/OrderRegistToolkit';
 
-const WorkInstruction = (props) => {
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 가시성 향상
+ * @param param0 
+ * @returns 
+ */
+
+const WorkInstruction = () => {
   const [list, setList] = useState([]);
-  const [size, setSize] = useState('50vh');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [orderDialog, setOrderDialog] = useState(false);

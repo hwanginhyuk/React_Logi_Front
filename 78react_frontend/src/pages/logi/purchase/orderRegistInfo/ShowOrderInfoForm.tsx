@@ -1,20 +1,20 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import MyGrid from 'pages/utils/Mygrid';
-import Axios from 'axios';
-import Swal from 'sweetalert2';
 import MainCard from 'ui-component/cards/MainCard';
-import MyDialog from 'pages/utils/MyDialog';
 import { DataGrid } from '@mui/x-data-grid';
-import {textAlign} from "@mui/system";
 import {Button, Grid, Box} from "@mui/material";
 import MyCalendar from 'pages/utils/Mycalender';
 import { getOrderInfoList } from 'pages/logi/purchase/orderRegistInfo/redux/OrderInfoToolkit';
 
-const WorkInstruction = (props) => {
+/**
+ * [78inhyuk]
+ * 오류 수정 및 소스코드 가시성 향상
+ * @param param0 
+ * @returns 
+ */
+
+const WorkInstruction = () => {
     const [list, setList] = useState([]);
-    const [size, setSize] = useState('50vh');
-    const [data, setData] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
@@ -30,6 +30,16 @@ const WorkInstruction = (props) => {
     ]
 
     const dispatch = useDispatch();
+
+    /**
+     * [78inhyuk]
+     * state이 unknown형식으로 나타나는 이유는 TypeScript에서 변수의 형식이 명확하지
+     * 않기 때문이다
+     * 상태추론이 가능하지 않기 때문에 주로 발생한다
+     * 해결방법
+     * 반환형식을 명시적으로 지정 (인터페이스로 타입을 만든다던가)
+     * as를 사용하여 타입추론을 안하게 한다 (추천안함)
+     */
 
     const orderInfoListState = useSelector((state) => {
       return state.orderInfo.orderInfoList;
@@ -49,11 +59,6 @@ const WorkInstruction = (props) => {
         } else {
           setEndDate(e.target.value);
         }
-    };
-
-    const basicInfo = (startDate, endDate) => {
-      setStartDate(startDate);
-      setEndDate(endDate);
     };
 
     return (
